@@ -12,13 +12,21 @@
       font-family: system-ui, -apple-system, sans-serif;
       color: #888;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       padding: 20px;
+    }
+    body:has(.container) {
+      align-items: center;
     }
     .container {
       width: 100%;
       max-width: 600px;
+    }
+    .results-container {
+      width: 100%;
+      max-width: 1400px;
+      padding-top: 20px;
     }
     .query-display {
       text-align: center;
@@ -280,6 +288,264 @@
       padding: 24px;
       color: #444;
       font-size: 13px;
+    }
+
+    /* Multi-source Results View */
+    .results-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #222;
+    }
+    .results-query {
+      font-size: 16px;
+      color: #ccc;
+    }
+    .results-query span {
+      color: #7ac;
+    }
+    .results-back {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 8px 16px;
+      color: #888;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .results-back:hover {
+      background: #222;
+      color: #aaa;
+    }
+    .source-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+      padding: 12px;
+      background: #111;
+      border-radius: 8px;
+      border: 1px solid #222;
+    }
+    .source-tab {
+      padding: 6px 12px;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 4px;
+      color: #666;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-transform: capitalize;
+    }
+    .source-tab:hover {
+      background: #222;
+      border-color: #333;
+      color: #888;
+    }
+    .source-tab.active {
+      background: #1a2a3a;
+      border-color: #3a5a7a;
+      color: #7ac;
+    }
+    .source-tab.loading {
+      opacity: 0.6;
+    }
+    .source-tab .tab-status {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-left: 6px;
+    }
+    .source-tab .tab-status.loading {
+      background: #a86;
+      animation: pulse 1s infinite;
+    }
+    .source-tab .tab-status.loaded {
+      background: #6a6;
+    }
+    .source-tab .tab-status.error {
+      background: #a66;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 16px;
+    }
+    .results-grid.single-view {
+      grid-template-columns: 1fr;
+    }
+    .source-panel {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .source-panel.hidden {
+      display: none;
+    }
+    .source-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: #151515;
+      border-bottom: 1px solid #222;
+    }
+    .source-panel-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #888;
+      font-weight: 500;
+      text-transform: capitalize;
+    }
+    .source-panel-title .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #a86;
+      animation: pulse 1s infinite;
+    }
+    .source-panel-title .status-dot.loaded {
+      background: #6a6;
+      animation: none;
+    }
+    .source-panel-title .status-dot.error {
+      background: #a66;
+      animation: none;
+    }
+    .source-panel-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .source-panel-btn {
+      background: transparent;
+      border: 1px solid #333;
+      border-radius: 4px;
+      padding: 4px 10px;
+      color: #666;
+      font-size: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .source-panel-btn:hover {
+      background: #1a1a1a;
+      color: #888;
+    }
+    .source-iframe-container {
+      position: relative;
+      height: 500px;
+      background: #0d0d0d;
+    }
+    .source-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #fff;
+    }
+    .source-loading {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #111;
+      color: #555;
+      font-size: 12px;
+    }
+    .source-loading .spinner {
+      margin-bottom: 12px;
+    }
+    .source-error {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #111;
+      color: #666;
+      font-size: 12px;
+      text-align: center;
+      padding: 20px;
+    }
+    .source-error-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+      opacity: 0.5;
+    }
+    .source-error-msg {
+      margin-bottom: 16px;
+      color: #555;
+    }
+    .source-error-btn {
+      background: #1a2a3a;
+      border: 1px solid #2a4a5a;
+      border-radius: 6px;
+      padding: 10px 20px;
+      color: #7ac;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .source-error-btn:hover {
+      background: #223a4a;
+    }
+    .view-toggle {
+      display: flex;
+      gap: 4px;
+      margin-left: 12px;
+    }
+    .view-toggle-btn {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 4px;
+      padding: 6px 10px;
+      color: #555;
+      font-size: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .view-toggle-btn:hover {
+      background: #222;
+      color: #777;
+    }
+    .view-toggle-btn.active {
+      background: #1a2a3a;
+      border-color: #3a5a7a;
+      color: #7ac;
+    }
+    .results-summary {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 11px;
+      color: #555;
+    }
+    .results-count {
+      padding: 4px 10px;
+      background: #151515;
+      border-radius: 4px;
     }
   </style>
 </head>
@@ -834,7 +1100,7 @@
       html += `
         <div class="no-results" id="no-results" style="display: none;">No options match your filter</div>
         <div class="footer">
-          Click an option to search • Hold Shift+Click to open all engines in tabs
+          Click to view all sources • Shift+Click to open all in tabs • Ctrl+Click to open first source only
         </div>
       `;
 
@@ -845,8 +1111,17 @@
         card.addEventListener('click', (e) => {
           e.preventDefault();
           const optionKey = card.dataset.option;
-          const mode = e.shiftKey ? 'tabs' : 'redirect';
-          OSINT.executeSearch(analysis.query, optionKey, mode);
+
+          if (e.shiftKey) {
+            // Shift+Click: Open all engines in separate tabs
+            OSINT.executeSearch(analysis.query, optionKey, 'tabs');
+          } else if (e.ctrlKey || e.metaKey) {
+            // Ctrl/Cmd+Click: Redirect to first source (old behavior)
+            OSINT.executeSearch(analysis.query, optionKey, 'redirect');
+          } else {
+            // Regular click: Show multi-source results view
+            renderMultiSourceResults(analysis.query, optionKey);
+          }
         });
       });
 
@@ -907,6 +1182,290 @@
           <div class="engines-preview">${enginePreview}</div>
         </a>
       `;
+    }
+
+    //=========================================
+    // MULTI-SOURCE RESULTS VIEW
+    //=========================================
+    let currentView = 'grid'; // 'grid' or 'single'
+    let activeSource = null;
+    let sourceStates = {}; // Track loading states
+
+    function renderMultiSourceResults(query, optionKey) {
+      const option = OSINT.searchOptions[optionKey];
+      if (!option) return;
+
+      const queries = option.buildQuery(query);
+      const searches = option.engines
+        .filter(eng => queries[eng] !== null && queries[eng] !== undefined)
+        .map(eng => ({
+          engine: eng,
+          url: OSINT.engines[eng](queries[eng] || queries.default || query),
+          query: queries[eng] || queries.default || query,
+        }));
+
+      // Initialize source states
+      sourceStates = {};
+      searches.forEach(s => {
+        sourceStates[s.engine] = 'loading';
+      });
+
+      // Set first source as active for single view
+      activeSource = searches[0]?.engine || null;
+
+      const app = document.getElementById('app');
+      app.classList.remove('container');
+      app.classList.add('results-container');
+
+      let html = `
+        <div class="results-header">
+          <div class="results-query">
+            Results for <span>"${escapeHtml(query)}"</span> from <span>${option.title}</span>
+          </div>
+          <div style="display: flex; align-items: center;">
+            <button class="results-back" onclick="goBack()">Back to Options</button>
+            <div class="view-toggle">
+              <button class="view-toggle-btn ${currentView === 'grid' ? 'active' : ''}" data-view="grid" title="Grid View">Grid</button>
+              <button class="view-toggle-btn ${currentView === 'single' ? 'active' : ''}" data-view="single" title="Single View">Single</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="source-tabs" id="source-tabs">
+          ${searches.map((s, i) => `
+            <button class="source-tab ${i === 0 ? 'active' : ''}" data-engine="${s.engine}">
+              ${s.engine}
+              <span class="tab-status loading" data-status="${s.engine}"></span>
+            </button>
+          `).join('')}
+        </div>
+
+        <div class="results-summary">
+          <span class="results-count">${searches.length} sources</span>
+          <span>Click a tab to focus, or use grid view to see all</span>
+        </div>
+
+        <div class="results-grid ${currentView === 'single' ? 'single-view' : ''}" id="results-grid">
+          ${searches.map((s, i) => renderSourcePanel(s, i === 0 || currentView === 'grid')).join('')}
+        </div>
+
+        <div class="footer" style="margin-top: 20px;">
+          Some sites may block embedding. Click "Open in New Tab" to view directly.
+        </div>
+      `;
+
+      app.innerHTML = html;
+
+      // Add event listeners
+      setupResultsEventListeners(searches);
+
+      // Start loading iframes with staggered delay
+      searches.forEach((s, i) => {
+        setTimeout(() => {
+          loadSourceIframe(s.engine, s.url);
+        }, i * 300); // 300ms stagger to avoid overwhelming
+      });
+    }
+
+    function renderSourcePanel(search, visible) {
+      return `
+        <div class="source-panel ${visible ? '' : 'hidden'}" data-panel="${search.engine}" id="panel-${search.engine}">
+          <div class="source-panel-header">
+            <div class="source-panel-title">
+              <span class="status-dot" data-dot="${search.engine}"></span>
+              ${search.engine}
+            </div>
+            <div class="source-panel-actions">
+              <button class="source-panel-btn" onclick="openInNewTab('${search.url}')">Open in New Tab</button>
+              <button class="source-panel-btn" onclick="refreshSource('${search.engine}', '${search.url}')">Refresh</button>
+            </div>
+          </div>
+          <div class="source-iframe-container" id="iframe-container-${search.engine}">
+            <div class="source-loading" id="loading-${search.engine}">
+              <div class="spinner"></div>
+              Loading ${search.engine}...
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function loadSourceIframe(engine, url) {
+      const container = document.getElementById(`iframe-container-${engine}`);
+      const loadingEl = document.getElementById(`loading-${engine}`);
+
+      if (!container) return;
+
+      // Create iframe
+      const iframe = document.createElement('iframe');
+      iframe.className = 'source-iframe';
+      iframe.id = `iframe-${engine}`;
+      iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-popups');
+      iframe.setAttribute('loading', 'lazy');
+
+      // Handle load success
+      iframe.onload = () => {
+        updateSourceState(engine, 'loaded');
+        if (loadingEl) loadingEl.style.display = 'none';
+      };
+
+      // Handle load error (many sites block iframes)
+      iframe.onerror = () => {
+        showSourceError(engine, url);
+      };
+
+      // Set a timeout to show error if iframe doesn't load
+      const timeout = setTimeout(() => {
+        if (sourceStates[engine] === 'loading') {
+          // Check if iframe has content
+          try {
+            // If we can't access iframe content due to CORS, show error
+            const doc = iframe.contentDocument || iframe.contentWindow?.document;
+            if (!doc || !doc.body || doc.body.innerHTML === '') {
+              showSourceError(engine, url);
+            }
+          } catch (e) {
+            // CORS error means it might have loaded
+            updateSourceState(engine, 'loaded');
+            if (loadingEl) loadingEl.style.display = 'none';
+          }
+        }
+      }, 8000);
+
+      iframe.src = url;
+      container.appendChild(iframe);
+
+      // Store timeout for cleanup
+      iframe.dataset.timeout = timeout;
+    }
+
+    function showSourceError(engine, url) {
+      updateSourceState(engine, 'error');
+      const container = document.getElementById(`iframe-container-${engine}`);
+      const loadingEl = document.getElementById(`loading-${engine}`);
+      const existingIframe = document.getElementById(`iframe-${engine}`);
+
+      if (loadingEl) loadingEl.style.display = 'none';
+      if (existingIframe) existingIframe.style.display = 'none';
+
+      // Check if error div already exists
+      if (container && !container.querySelector('.source-error')) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'source-error';
+        errorDiv.innerHTML = `
+          <div class="source-error-icon">🚫</div>
+          <div class="source-error-msg">
+            ${engine} doesn't allow embedding.<br>
+            Click below to view results directly.
+          </div>
+          <button class="source-error-btn" onclick="openInNewTab('${url}')">
+            Open ${engine} in New Tab
+          </button>
+        `;
+        container.appendChild(errorDiv);
+      }
+    }
+
+    function updateSourceState(engine, state) {
+      sourceStates[engine] = state;
+
+      // Update tab status indicator
+      const tabStatus = document.querySelector(`[data-status="${engine}"]`);
+      if (tabStatus) {
+        tabStatus.className = `tab-status ${state}`;
+      }
+
+      // Update panel status dot
+      const panelDot = document.querySelector(`[data-dot="${engine}"]`);
+      if (panelDot) {
+        panelDot.className = `status-dot ${state}`;
+      }
+    }
+
+    function setupResultsEventListeners(searches) {
+      // Tab click handlers
+      document.querySelectorAll('.source-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          const engine = tab.dataset.engine;
+          activeSource = engine;
+
+          // Update tab active state
+          document.querySelectorAll('.source-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+
+          // In single view, show only the selected panel
+          if (currentView === 'single') {
+            document.querySelectorAll('.source-panel').forEach(panel => {
+              panel.classList.toggle('hidden', panel.dataset.panel !== engine);
+            });
+          }
+        });
+      });
+
+      // View toggle handlers
+      document.querySelectorAll('.view-toggle-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const view = btn.dataset.view;
+          if (view === currentView) return;
+
+          currentView = view;
+
+          // Update button states
+          document.querySelectorAll('.view-toggle-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          // Update grid class
+          const grid = document.getElementById('results-grid');
+          grid.classList.toggle('single-view', view === 'single');
+
+          // Update panel visibility
+          document.querySelectorAll('.source-panel').forEach(panel => {
+            if (view === 'grid') {
+              panel.classList.remove('hidden');
+            } else {
+              panel.classList.toggle('hidden', panel.dataset.panel !== activeSource);
+            }
+          });
+        });
+      });
+    }
+
+    function openInNewTab(url) {
+      window.open(url, '_blank');
+    }
+
+    function refreshSource(engine, url) {
+      const container = document.getElementById(`iframe-container-${engine}`);
+      const existingIframe = document.getElementById(`iframe-${engine}`);
+      const existingError = container?.querySelector('.source-error');
+
+      // Remove existing iframe and error
+      if (existingIframe) existingIframe.remove();
+      if (existingError) existingError.remove();
+
+      // Show loading
+      const loadingEl = document.getElementById(`loading-${engine}`);
+      if (loadingEl) loadingEl.style.display = 'flex';
+
+      // Reset state and reload
+      updateSourceState(engine, 'loading');
+      loadSourceIframe(engine, url);
+    }
+
+    function goBack() {
+      const params = new URLSearchParams(window.location.search);
+      const query = params.get('q');
+      if (query) {
+        // Reset container class
+        const app = document.getElementById('app');
+        app.classList.add('container');
+        app.classList.remove('results-container');
+
+        const analysis = OSINT.analyze(query);
+        renderUI(analysis);
+      } else {
+        window.location.href = window.location.pathname;
+      }
     }
 
     function renderSearchBox() {
