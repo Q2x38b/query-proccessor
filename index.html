@@ -11,18 +11,24 @@
       background: #0a0a0a;
       font-family: system-ui, -apple-system, sans-serif;
       color: #888;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       padding: 20px;
     }
     .container {
       width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .container.centered {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 40px);
       max-width: 600px;
     }
     .query-display {
       text-align: center;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
     }
     .query-label {
       font-size: 11px;
@@ -35,16 +41,6 @@
       font-size: 18px;
       color: #ccc;
       word-break: break-word;
-    }
-    .detected-badge {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 4px 12px;
-      background: #1a2a1a;
-      border: 1px solid #2a4a2a;
-      border-radius: 20px;
-      font-size: 11px;
-      color: #6a6;
     }
     .section-title {
       font-size: 11px;
@@ -106,20 +102,14 @@
       stroke-linecap: round;
       stroke-linejoin: round;
     }
-    .option-card .option-icon svg {
-      color: #666;
-    }
-    .option-card.recommended .option-icon svg {
-      color: #7ac;
-    }
+    .option-card .option-icon svg { color: #666; }
+    .option-card.recommended .option-icon svg { color: #7ac; }
     .option-title {
       font-size: 13px;
       color: #bbb;
       font-weight: 500;
     }
-    .option-card.recommended .option-title {
-      color: #7ac;
-    }
+    .option-card.recommended .option-title { color: #7ac; }
     .option-desc {
       font-size: 11px;
       color: #555;
@@ -154,11 +144,20 @@
       animation: spin 0.8s linear infinite;
       margin: 40px auto;
     }
+    .spinner-small {
+      width: 16px;
+      height: 16px;
+      border: 2px solid #333;
+      border-top-color: #666;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
     @keyframes spin { to { transform: rotate(360deg); } }
     .search-box {
       display: flex;
       gap: 8px;
       margin-bottom: 24px;
+      width: 100%;
     }
     .search-input {
       flex: 1;
@@ -170,12 +169,8 @@
       font-size: 14px;
       outline: none;
     }
-    .search-input:focus {
-      border-color: #333;
-    }
-    .search-input::placeholder {
-      color: #444;
-    }
+    .search-input:focus { border-color: #333; }
+    .search-input::placeholder { color: #444; }
     .search-btn {
       background: #1a1a1a;
       border: 1px solid #222;
@@ -189,26 +184,6 @@
     .search-btn:hover {
       background: #222;
       color: #aaa;
-    }
-    .mode-toggle {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      margin-top: 20px;
-    }
-    .mode-btn {
-      background: transparent;
-      border: 1px solid #222;
-      border-radius: 4px;
-      padding: 6px 12px;
-      color: #555;
-      font-size: 11px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .mode-btn:hover, .mode-btn.active {
-      border-color: #444;
-      color: #888;
     }
     .footer {
       text-align: center;
@@ -252,9 +227,7 @@
       border-color: #333;
       background: #151515;
     }
-    .filter-input::placeholder {
-      color: #444;
-    }
+    .filter-input::placeholder { color: #444; }
     .filter-icon {
       position: absolute;
       left: 12px;
@@ -272,24 +245,303 @@
       stroke-width: 1.5;
       fill: none;
     }
-    .option-card.hidden {
-      display: none;
-    }
+    .option-card.hidden { display: none; }
     .no-results {
       text-align: center;
       padding: 24px;
       color: #444;
       font-size: 13px;
     }
+
+    /* Results View Styles */
+    .results-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .back-btn {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 6px;
+      padding: 8px 12px;
+      color: #888;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .back-btn:hover {
+      background: #181818;
+      border-color: #333;
+      color: #aaa;
+    }
+    .back-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+    .results-title {
+      flex: 1;
+    }
+    .results-title h2 {
+      font-size: 16px;
+      color: #ccc;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .results-title .subtitle {
+      font-size: 11px;
+      color: #555;
+    }
+    .progress-bar {
+      height: 3px;
+      background: #1a1a1a;
+      border-radius: 2px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2a5a7a, #7ac);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    .results-stats {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-item {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 6px;
+      padding: 12px 16px;
+      text-align: center;
+      flex: 1;
+    }
+    .stat-value {
+      font-size: 20px;
+      color: #ccc;
+      font-weight: 500;
+    }
+    .stat-label {
+      font-size: 10px;
+      color: #555;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .results-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .source-card {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .source-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: #0d0d0d;
+      border-bottom: 1px solid #1a1a1a;
+      cursor: pointer;
+    }
+    .source-header:hover {
+      background: #121212;
+    }
+    .source-icon {
+      width: 24px;
+      height: 24px;
+      background: #1a1a1a;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #666;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .source-name {
+      flex: 1;
+      font-size: 13px;
+      color: #bbb;
+      font-weight: 500;
+    }
+    .source-status {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .source-status.loading {
+      color: #a98;
+      background: #1a1815;
+    }
+    .source-status.success {
+      color: #6a6;
+      background: #1a2a1a;
+    }
+    .source-status.error {
+      color: #a66;
+      background: #2a1a1a;
+    }
+    .source-status.partial {
+      color: #aa6;
+      background: #2a2a1a;
+    }
+    .source-expand {
+      color: #444;
+      transition: transform 0.2s;
+    }
+    .source-expand svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+    .source-card.expanded .source-expand {
+      transform: rotate(180deg);
+    }
+    .source-results {
+      display: none;
+      padding: 16px;
+    }
+    .source-card.expanded .source-results {
+      display: block;
+    }
+    .result-item {
+      padding: 12px;
+      background: #0d0d0d;
+      border: 1px solid #1a1a1a;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+    .result-item:last-child {
+      margin-bottom: 0;
+    }
+    .result-title {
+      font-size: 13px;
+      color: #7ac;
+      margin-bottom: 6px;
+      text-decoration: none;
+      display: block;
+    }
+    .result-title:hover {
+      text-decoration: underline;
+    }
+    .result-snippet {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+    .result-url {
+      font-size: 10px;
+      color: #4a4;
+      word-break: break-all;
+    }
+    .result-meta {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+      font-size: 10px;
+      color: #555;
+    }
+    .open-source-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 4px;
+      color: #888;
+      font-size: 11px;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-top: 12px;
+    }
+    .open-source-btn:hover {
+      background: #222;
+      color: #aaa;
+      border-color: #333;
+    }
+    .open-source-btn svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+    .empty-results {
+      text-align: center;
+      padding: 24px;
+      color: #444;
+      font-size: 12px;
+    }
+    .iframe-container {
+      width: 100%;
+      height: 400px;
+      border: 1px solid #222;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .iframe-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .source-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .open-all-btn {
+      background: #1a2a30;
+      border: 1px solid #2a4a5a;
+      border-radius: 6px;
+      padding: 10px 16px;
+      color: #7ac;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .open-all-btn:hover {
+      background: #1a3040;
+      border-color: #3a6a7a;
+    }
+    .open-all-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
   </style>
 </head>
 <body>
-  <div class="container" id="app">
+  <div class="container centered" id="app">
     <div class="spinner"></div>
   </div>
 
   <script>
-    // SVG Icons - minimal stroke-based icons
+    // SVG Icons
     const SVG_ICONS = {
       person: '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2"/></svg>',
       phone: '<svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
@@ -316,20 +568,87 @@
       code: '<svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
       archive: '<svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="5" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>',
       search: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>',
+      arrowLeft: '<svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>',
+      externalLink: '<svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>',
+      chevronDown: '<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>',
+      tabs: '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v6"/></svg>',
     };
 
     function getIcon(iconName) {
       return SVG_ICONS[iconName] || SVG_ICONS.search;
     }
 
+    // CORS Proxy for fetching external content
+    const CORS_PROXIES = [
+      url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+      url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+    ];
+
+    async function fetchWithProxy(url, timeout = 10000) {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+      for (const proxyFn of CORS_PROXIES) {
+        try {
+          const proxyUrl = proxyFn(url);
+          const response = await fetch(proxyUrl, { signal: controller.signal });
+          clearTimeout(timeoutId);
+          if (response.ok) {
+            return await response.text();
+          }
+        } catch (e) {
+          continue;
+        }
+      }
+      clearTimeout(timeoutId);
+      throw new Error('All proxies failed');
+    }
+
+    // Parse results from HTML
+    function parseResults(html, engine, url) {
+      const results = [];
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+
+      // Generic extraction - try to find links and text
+      const links = doc.querySelectorAll('a[href]');
+      const seen = new Set();
+
+      links.forEach(link => {
+        const href = link.href;
+        const text = link.textContent?.trim();
+
+        if (!text || text.length < 5 || seen.has(text)) return;
+        if (href.includes('javascript:') || href.startsWith('#')) return;
+
+        // Get parent context for snippet
+        let snippet = '';
+        let parent = link.parentElement;
+        for (let i = 0; i < 3 && parent; i++) {
+          const parentText = parent.textContent?.trim();
+          if (parentText && parentText.length > text.length + 20) {
+            snippet = parentText.substring(0, 200);
+            break;
+          }
+          parent = parent.parentElement;
+        }
+
+        seen.add(text);
+        results.push({
+          title: text.substring(0, 100),
+          url: href,
+          snippet: snippet.replace(text, '').trim().substring(0, 150),
+        });
+      });
+
+      return results.slice(0, 10);
+    }
+
     const OSINT = {
-      //=========================================
-      // SEARCH ENGINES
-      //=========================================
       engines: {
         google: q => `https://www.google.com/search?q=${encodeURIComponent(q)}`,
         bing: q => `https://www.bing.com/search?q=${encodeURIComponent(q)}`,
         ddg: q => `https://duckduckgo.com/?q=${encodeURIComponent(q)}`,
+        duckduckgohtml: q => `https://html.duckduckgo.com/html/?q=${encodeURIComponent(q)}`,
         yandex: q => `https://yandex.com/search/?text=${encodeURIComponent(q)}`,
         brave: q => `https://search.brave.com/search?q=${encodeURIComponent(q)}`,
         github: q => `https://github.com/search?q=${encodeURIComponent(q)}&type=code`,
@@ -361,7 +680,6 @@
         thatsthem: q => `https://thatsthem.com/name/${encodeURIComponent(q.replace(/\s+/g, '-'))}`,
         whitepages: q => `https://www.whitepages.com/name/${encodeURIComponent(q)}`,
         spokeo: q => `https://www.spokeo.com/${encodeURIComponent(q)}`,
-        // Additional people search engines
         peekyou: q => `https://www.peekyou.com/${encodeURIComponent(q.replace(/\s+/g, '_'))}`,
         fastpeoplesearch: q => `https://www.fastpeoplesearch.com/name/${encodeURIComponent(q.replace(/\s+/g, '-'))}`,
         webmii: q => `https://webmii.com/people?n=${encodeURIComponent(q)}`,
@@ -409,9 +727,29 @@
         nhtsa: vin => `https://vpic.nhtsa.dot.gov/decoder/Decoder?VIN=${vin}`,
       },
 
-      //=========================================
-      // ENTITY PATTERNS
-      //=========================================
+      engineNames: {
+        google: 'Google', bing: 'Bing', ddg: 'DuckDuckGo', duckduckgohtml: 'DuckDuckGo', yandex: 'Yandex', brave: 'Brave',
+        github: 'GitHub', gitlab: 'GitLab', stackoverflow: 'Stack Overflow', searchcode: 'SearchCode',
+        shodan: 'Shodan', censys: 'Censys', virustotal: 'VirusTotal', urlscan: 'URLScan', greynoise: 'GreyNoise',
+        pulsedive: 'Pulsedive', alienvault: 'AlienVault', crtsh: 'crt.sh', securitytrails: 'SecurityTrails',
+        whois: 'WHOIS', viewdns: 'ViewDNS', dnslytics: 'DNSlytics', linkedin: 'LinkedIn', twitter: 'Twitter',
+        reddit: 'Reddit', facebook: 'Facebook', instagram: 'Instagram', tiktok: 'TikTok', youtube: 'YouTube',
+        telegram: 'Telegram', pipl: 'Pipl', truepeoplesearch: 'TruePeopleSearch', thatsthem: 'ThatsThem',
+        whitepages: 'WhitePages', spokeo: 'Spokeo', peekyou: 'PeekYou', fastpeoplesearch: 'FastPeopleSearch',
+        webmii: 'WebMii', usphonebook: 'USPhonebook', socialcatfish: 'SocialCatfish', familytreenow: 'FamilyTreeNow',
+        instantcheckmate: 'InstantCheckmate', beenverified: 'BeenVerified', zabasearch: 'ZabaSearch',
+        radaris: 'Radaris', usersearch: 'UserSearch', namechk: 'Namechk', knowem: 'KnowEm',
+        wayback: 'Wayback Machine', archive: 'Archive.org', opencorporates: 'OpenCorporates', sec: 'SEC',
+        crunchbase: 'Crunchbase', companieshouse: 'Companies House', courtlistener: 'CourtListener',
+        judyrecords: 'JudyRecords', scholar: 'Google Scholar', arxiv: 'arXiv', semanticscholar: 'Semantic Scholar',
+        pubmed: 'PubMed', googlepatents: 'Google Patents', googleimg: 'Google Images', googleimgrev: 'Google Lens',
+        yandexrev: 'Yandex Images', tineye: 'TinEye', hibp: 'Have I Been Pwned', dehashed: 'Dehashed',
+        intelx: 'IntelX', snusbase: 'Snusbase', pastes: 'Paste Sites', googlenews: 'Google News',
+        googlemaps: 'Google Maps', flightaware: 'FlightAware', flightradar: 'FlightRadar24',
+        marinetraffic: 'MarineTraffic', vesselfinder: 'VesselFinder', blockchain: 'Blockchain.com',
+        etherscan: 'Etherscan', bitcoinabuse: 'BitcoinAbuse', nhtsa: 'NHTSA',
+      },
+
       entities: {
         email: { pattern: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, category: 'contact', label: 'Email' },
         phone_us: { pattern: /\b(?:\+1[-.\s]?)?(?:\([0-9]{3}\)|[0-9]{3})[-.\s]?[0-9]{3}[-.\s]?[0-9]{4}\b/g, category: 'contact', country: 'US', label: 'Phone' },
@@ -422,302 +760,131 @@
         url: { pattern: /https?:\/\/[^\s<>"']+/g, category: 'network', label: 'URL' },
         imageUrl: { pattern: /https?:\/\/[^\s<>"']+\.(?:jpg|jpeg|png|gif|webp|bmp)(?:\?[^\s]*)?/gi, category: 'media', label: 'Image URL' },
         username: { pattern: /@([A-Za-z0-9_]{1,30})\b/g, category: 'social', label: 'Username' },
-        hashtag: { pattern: /#([A-Za-z0-9_]+)\b/g, category: 'social', label: 'Hashtag' },
         btc: { pattern: /\b[13][a-km-zA-HJ-NP-Z1-9]{25,34}\b/g, category: 'crypto', label: 'Bitcoin Address' },
-        btc_bech32: { pattern: /\bbc1[a-zA-HJ-NP-Z0-9]{39,59}\b/g, category: 'crypto', label: 'Bitcoin Address' },
         eth: { pattern: /\b0x[a-fA-F0-9]{40}\b/g, category: 'crypto', label: 'Ethereum Address' },
         md5: { pattern: /\b[a-fA-F0-9]{32}\b/g, category: 'hash', label: 'MD5 Hash' },
         sha1: { pattern: /\b[a-fA-F0-9]{40}\b/g, category: 'hash', label: 'SHA1 Hash' },
         sha256: { pattern: /\b[a-fA-F0-9]{64}\b/g, category: 'hash', label: 'SHA256 Hash' },
-        ssn_us: { pattern: /\b\d{3}-\d{2}-\d{4}\b/g, category: 'id', country: 'US', label: 'SSN', sensitive: true },
-        vin: { pattern: /\b[A-HJ-NPR-Z0-9]{17}\b/g, category: 'vehicle', label: 'VIN' },
-        plate_us: { pattern: /\b[A-Z0-9]{1,3}[-\s]?[A-Z0-9]{2,4}[-\s]?[A-Z0-9]{0,4}\b/g, category: 'vehicle', country: 'US', label: 'License Plate' },
-        plate_uk: { pattern: /\b[A-Z]{2}\d{2}[-\s]?[A-Z]{3}\b/gi, category: 'vehicle', country: 'UK', label: 'License Plate' },
-        plate_eu: { pattern: /\b[A-Z]{1,3}[-\s]?[A-Z0-9]{1,4}[-\s]?[A-Z0-9]{1,4}\b/g, category: 'vehicle', country: 'EU', label: 'License Plate' },
-        flight: { pattern: /\b[A-Z]{2,3}\d{1,4}\b/g, category: 'transport', label: 'Flight Number' },
-        imo: { pattern: /\bIMO[-\s]?\d{7}\b/gi, category: 'transport', label: 'IMO Number' },
-        iban: { pattern: /\b[A-Z]{2}\d{2}[A-Z0-9]{4}\d{7}([A-Z0-9]?){0,16}\b/g, category: 'financial', label: 'IBAN', sensitive: true },
-        case_us: { pattern: /\b\d{1,2}:\d{2}-[a-z]{2}-\d{4,6}\b/gi, category: 'legal', country: 'US', label: 'Case Number' },
-        ein: { pattern: /\b\d{2}-\d{7}\b/g, category: 'business', country: 'US', label: 'EIN' },
-        doi: { pattern: /\b10\.\d{4,}\/[^\s]+\b/g, category: 'academic', label: 'DOI' },
-        isbn: { pattern: /\b(?:ISBN[-\s]?)?(?:97[89][-\s]?)?(?:\d[-\s]?){9}[\dX]\b/gi, category: 'academic', label: 'ISBN' },
-        arxiv: { pattern: /\b(?:arXiv:)?\d{4}\.\d{4,5}(?:v\d+)?\b/gi, category: 'academic', label: 'arXiv ID' },
-        patent: { pattern: /\b(?:US|EP|WO)[-\s]?\d{6,10}[-\s]?[AB]?\d?\b/gi, category: 'academic', label: 'Patent' },
         cve: { pattern: /\bCVE-\d{4}-\d{4,}\b/gi, category: 'security', label: 'CVE' },
-        coordinates: { pattern: /-?\d{1,3}\.\d{4,},\s*-?\d{1,3}\.\d{4,}/g, category: 'geo', label: 'Coordinates' },
       },
 
-      //=========================================
-      // SEARCH OPTIONS (Categories)
-      //=========================================
       searchOptions: {
         person: {
-          icon: 'person',
-          title: 'Person Search',
-          desc: 'Multi-source: social, records, background',
-          engines: ['google', 'linkedin', 'twitter', 'facebook', 'instagram', 'truepeoplesearch', 'thatsthem', 'whitepages', 'spokeo', 'peekyou', 'fastpeoplesearch', 'webmii', 'usphonebook', 'familytreenow', 'zabasearch', 'radaris', 'pipl'],
-          buildQuery: (q) => ({
-            default: `"${q}" (profile OR bio OR contact OR person)`,
-            linkedin: q,
-            twitter: q,
-            facebook: q,
-            instagram: q,
-            truepeoplesearch: q,
-            thatsthem: q,
-            whitepages: q,
-            spokeo: q,
-            peekyou: q,
-            fastpeoplesearch: q,
-            webmii: q,
-            usphonebook: q,
-            familytreenow: q,
-            zabasearch: q,
-            radaris: q,
-            pipl: q
-          }),
+          icon: 'person', title: 'Person Search', desc: 'Multi-source: social, records, background',
+          engines: ['duckduckgohtml', 'linkedin', 'twitter', 'facebook', 'instagram', 'truepeoplesearch', 'thatsthem', 'whitepages', 'spokeo', 'peekyou', 'fastpeoplesearch', 'webmii', 'usphonebook', 'familytreenow', 'zabasearch', 'radaris', 'pipl'],
+          buildQuery: (q) => ({ default: `"${q}" person profile`, linkedin: q, twitter: q, facebook: q, instagram: q, truepeoplesearch: q, thatsthem: q, whitepages: q, spokeo: q, peekyou: q, fastpeoplesearch: q, webmii: q, usphonebook: q, familytreenow: q, zabasearch: q, radaris: q, pipl: q }),
           triggers: /\b(who is|person|people|find person|lookup|background|investigate|full name|named)\b/i,
         },
         phone: {
-          icon: 'phone',
-          title: 'Phone Lookup',
-          desc: 'Reverse phone search, carrier info',
-          engines: ['google', 'truepeoplesearch', 'thatsthem', 'whitepages', 'spokeo'],
-          buildQuery: (q) => {
-            const clean = q.replace(/\D/g, '');
-            return { default: `"${q}" OR "${clean}"`, truepeoplesearch: q, thatsthem: q, whitepages: q, spokeo: q };
-          },
+          icon: 'phone', title: 'Phone Lookup', desc: 'Reverse phone search, carrier info',
+          engines: ['duckduckgohtml', 'truepeoplesearch', 'thatsthem', 'whitepages', 'spokeo', 'usphonebook'],
+          buildQuery: (q) => { const clean = q.replace(/\D/g, ''); return { default: `"${q}" OR "${clean}"`, truepeoplesearch: q, thatsthem: q, whitepages: q, spokeo: q, usphonebook: q }; },
           forEntities: ['phone_us', 'phone_uk', 'phone_intl'],
         },
         email: {
-          icon: 'email',
-          title: 'Email OSINT',
-          desc: 'Breaches, accounts, associated profiles',
-          engines: ['google', 'hibp', 'dehashed', 'intelx', 'snusbase', 'github', 'linkedin', 'pastes'],
-          buildQuery: (q) => ({ default: `"${q}"`, hibp: q, dehashed: q, intelx: q, snusbase: q, github: `"${q}"`, linkedin: q.split('@')[0], pastes: q }),
+          icon: 'email', title: 'Email OSINT', desc: 'Breaches, accounts, associated profiles',
+          engines: ['duckduckgohtml', 'hibp', 'github', 'linkedin'],
+          buildQuery: (q) => ({ default: `"${q}"`, hibp: q, github: `"${q}"`, linkedin: q.split('@')[0] }),
           forEntities: ['email'],
         },
         username: {
-          icon: 'username',
-          title: 'Username Search',
-          desc: 'Cross-platform social presence',
-          engines: ['google', 'twitter', 'reddit', 'github', 'instagram', 'tiktok', 'youtube', 'telegram'],
-          buildQuery: (q) => {
-            const clean = q.replace('@', '');
-            return { default: `"${clean}" OR "@${clean}" OR inurl:${clean}`, twitter: clean, reddit: `author:${clean}`, github: clean, instagram: clean, tiktok: clean, youtube: clean, telegram: clean };
-          },
+          icon: 'username', title: 'Username Search', desc: 'Cross-platform social presence',
+          engines: ['duckduckgohtml', 'twitter', 'reddit', 'github', 'instagram', 'tiktok', 'youtube'],
+          buildQuery: (q) => { const clean = q.replace('@', ''); return { default: `"${clean}" OR "@${clean}"`, twitter: clean, reddit: `author:${clean}`, github: clean, instagram: clean, tiktok: clean, youtube: clean }; },
           forEntities: ['username'],
         },
         domain: {
-          icon: 'globe',
-          title: 'Domain Intel',
-          desc: 'WHOIS, DNS, subdomains, certificates',
-          engines: ['google', 'whois', 'viewdns', 'crtsh', 'securitytrails', 'dnslytics', 'urlscan', 'wayback', 'shodan'],
-          buildQuery: (q) => {
-            const d = q.replace(/^https?:\/\//, '').split('/')[0];
-            return { default: `"${d}" OR site:${d}`, whois: d, viewdns: d, crtsh: `%.${d}`, securitytrails: d, dnslytics: d, urlscan: `domain:${d}`, wayback: d, shodan: `hostname:${d}` };
-          },
+          icon: 'globe', title: 'Domain Intel', desc: 'WHOIS, DNS, subdomains, certificates',
+          engines: ['duckduckgohtml', 'whois', 'crtsh', 'urlscan', 'wayback'],
+          buildQuery: (q) => { const d = q.replace(/^https?:\/\//, '').split('/')[0]; return { default: `"${d}" site info`, whois: d, crtsh: `%.${d}`, urlscan: `domain:${d}`, wayback: d }; },
           forEntities: ['domain'],
           triggers: /\b(domain|website|site info|whois|subdomains|dns|certificate)\b/i,
         },
         ip: {
-          icon: 'server',
-          title: 'IP Intelligence',
-          desc: 'Threat intel, geolocation, reputation',
-          engines: ['shodan', 'censys', 'greynoise', 'virustotal', 'pulsedive', 'alienvault', 'google'],
-          buildQuery: (q) => ({ shodan: `ip:${q}`, censys: `ip:${q}`, greynoise: `ip:${q}`, virustotal: q, pulsedive: q, alienvault: q, default: `"${q}"` }),
+          icon: 'server', title: 'IP Intelligence', desc: 'Threat intel, geolocation, reputation',
+          engines: ['shodan', 'censys', 'greynoise', 'virustotal', 'duckduckgohtml'],
+          buildQuery: (q) => ({ shodan: `ip:${q}`, censys: `ip:${q}`, greynoise: `ip:${q}`, virustotal: q, default: `"${q}" ip address` }),
           forEntities: ['ip'],
         },
         company: {
-          icon: 'building',
-          title: 'Company Research',
-          desc: 'SEC filings, corporate records, news',
-          engines: ['google', 'linkedin', 'opencorporates', 'sec', 'crunchbase', 'companieshouse', 'googlenews'],
-          buildQuery: (q) => ({ default: `"${q}" (company OR inc OR llc OR corp) (about OR contact)`, linkedin: `${q} company`, opencorporates: q, sec: q, crunchbase: q, companieshouse: q, googlenews: `${q} company` }),
+          icon: 'building', title: 'Company Research', desc: 'SEC filings, corporate records, news',
+          engines: ['duckduckgohtml', 'linkedin', 'opencorporates', 'crunchbase', 'googlenews'],
+          buildQuery: (q) => ({ default: `"${q}" company`, linkedin: `${q} company`, opencorporates: q, crunchbase: q, googlenews: `${q} company` }),
           triggers: /\b(company|business|corporation|org|organization|startup|firm|employer|inc|llc|ltd)\b/i,
         },
         breach: {
-          icon: 'unlock',
-          title: 'Breach Search',
-          desc: 'Leaked data, exposed credentials',
-          engines: ['google', 'hibp', 'dehashed', 'intelx', 'snusbase', 'pastes'],
-          buildQuery: (q) => ({ default: `"${q}" (leak OR breach OR dump OR exposed)`, hibp: q, dehashed: q, intelx: q, snusbase: q, pastes: q }),
+          icon: 'unlock', title: 'Breach Search', desc: 'Leaked data, exposed credentials',
+          engines: ['duckduckgohtml', 'hibp'],
+          buildQuery: (q) => ({ default: `"${q}" breach leak dump`, hibp: q }),
           triggers: /\b(breach|leak|dump|exposed|hack|compromised|stolen|pwned)\b/i,
         },
         social: {
-          icon: 'message',
-          title: 'Social Media',
-          desc: 'All major platforms',
-          engines: ['twitter', 'reddit', 'linkedin', 'facebook', 'instagram', 'tiktok', 'youtube', 'telegram'],
-          buildQuery: (q) => ({ twitter: q, reddit: q, linkedin: q, facebook: q, instagram: q, tiktok: q, youtube: q, telegram: q, default: q }),
+          icon: 'message', title: 'Social Media', desc: 'All major platforms',
+          engines: ['twitter', 'reddit', 'linkedin', 'facebook', 'instagram', 'tiktok', 'youtube'],
+          buildQuery: (q) => ({ twitter: q, reddit: q, linkedin: q, facebook: q, instagram: q, tiktok: q, youtube: q, default: q }),
           triggers: /\b(social media|twitter|facebook|instagram|linkedin|tiktok|reddit|youtube)\b/i,
         },
         image: {
-          icon: 'image',
-          title: 'Reverse Image',
-          desc: 'Find image source and duplicates',
+          icon: 'image', title: 'Reverse Image', desc: 'Find image source and duplicates',
           engines: ['googleimgrev', 'yandexrev', 'tineye'],
           buildQuery: (q) => ({ googleimgrev: q, yandexrev: q, tineye: q, default: q }),
           forEntities: ['imageUrl'],
           triggers: /\b(reverse image|image search|find image|identify image|who is this)\b/i,
         },
         hash: {
-          icon: 'key',
-          title: 'Hash Lookup',
-          desc: 'Malware analysis, file reputation',
-          engines: ['virustotal', 'intelx', 'google'],
-          buildQuery: (q) => ({ virustotal: q, intelx: q, default: `"${q}" (malware OR virus OR hash)` }),
+          icon: 'key', title: 'Hash Lookup', desc: 'Malware analysis, file reputation',
+          engines: ['virustotal', 'duckduckgohtml'],
+          buildQuery: (q) => ({ virustotal: q, default: `"${q}" malware hash` }),
           forEntities: ['md5', 'sha1', 'sha256'],
         },
         crypto: {
-          icon: 'bitcoin',
-          title: 'Crypto Address',
-          desc: 'Transaction history, scam reports',
-          engines: ['blockchain', 'google', 'bitcoinabuse'],
-          buildQuery: (q) => {
-            const isEth = q.startsWith('0x');
-            return { blockchain: q, default: `"${q}" (scam OR fraud OR stolen)`, bitcoinabuse: isEth ? null : q, etherscan: isEth ? q : null };
-          },
-          forEntities: ['btc', 'btc_bech32', 'eth'],
+          icon: 'bitcoin', title: 'Crypto Address', desc: 'Transaction history, scam reports',
+          engines: ['blockchain', 'duckduckgohtml', 'bitcoinabuse'],
+          buildQuery: (q) => { const isEth = q.startsWith('0x'); return { blockchain: q, default: `"${q}" crypto`, bitcoinabuse: isEth ? null : q, etherscan: isEth ? q : null }; },
+          forEntities: ['btc', 'eth'],
         },
         cve: {
-          icon: 'shield',
-          title: 'CVE Research',
-          desc: 'Exploits, advisories, patches',
-          engines: ['google', 'github', 'shodan'],
-          buildQuery: (q) => ({ default: `${q} (exploit OR POC OR advisory)`, github: `${q} exploit OR POC`, shodan: `vuln:${q}` }),
+          icon: 'shield', title: 'CVE Research', desc: 'Exploits, advisories, patches',
+          engines: ['duckduckgohtml', 'github'],
+          buildQuery: (q) => ({ default: `${q} exploit advisory`, github: `${q} exploit` }),
           forEntities: ['cve'],
           triggers: /\b(vulnerability|cve|exploit|security|vuln|0day)\b/i,
         },
-        vehicle: {
-          icon: 'car',
-          title: 'Vehicle Lookup',
-          desc: 'VIN decode, history, registration',
-          engines: ['nhtsa', 'google'],
-          buildQuery: (q) => ({ nhtsa: q, default: `"${q}" vehicle` }),
-          forEntities: ['vin'],
-        },
-        flight: {
-          icon: 'plane',
-          title: 'Flight Tracking',
-          desc: 'Real-time status, route history',
-          engines: ['flightaware', 'flightradar', 'google'],
-          buildQuery: (q) => ({ flightaware: q, flightradar: q.toLowerCase(), default: `${q} flight status` }),
-          forEntities: ['flight'],
-        },
-        ship: {
-          icon: 'ship',
-          title: 'Ship Tracking',
-          desc: 'Vessel position, voyage data',
-          engines: ['marinetraffic', 'vesselfinder', 'google'],
-          buildQuery: (q) => ({ marinetraffic: q.replace(/IMO[-\s]?/gi, ''), vesselfinder: q, default: `${q} vessel ship` }),
-          forEntities: ['imo'],
-        },
         academic: {
-          icon: 'book',
-          title: 'Academic Search',
-          desc: 'Papers, journals, citations',
-          engines: ['scholar', 'arxiv', 'semanticscholar', 'pubmed', 'google'],
-          buildQuery: (q) => ({ scholar: q, arxiv: q, semanticscholar: q, pubmed: q, default: `${q} (site:edu OR filetype:pdf) research` }),
-          forEntities: ['doi', 'isbn', 'arxiv'],
+          icon: 'book', title: 'Academic Search', desc: 'Papers, journals, citations',
+          engines: ['scholar', 'arxiv', 'pubmed', 'duckduckgohtml'],
+          buildQuery: (q) => ({ scholar: q, arxiv: q, pubmed: q, default: `${q} research paper` }),
           triggers: /\b(research|study|paper|academic|journal|scientific|scholar|thesis)\b/i,
         },
-        patent: {
-          icon: 'scroll',
-          title: 'Patent Search',
-          desc: 'Patent databases, prior art',
-          engines: ['googlepatents', 'google'],
-          buildQuery: (q) => ({ googlepatents: q, default: `"${q}" patent` }),
-          forEntities: ['patent'],
-        },
-        legal: {
-          icon: 'scale',
-          title: 'Legal Records',
-          desc: 'Court cases, filings, judgments',
-          engines: ['google', 'courtlistener', 'judyrecords', 'googlenews'],
-          buildQuery: (q) => ({ default: `"${q}" (court OR case OR lawsuit OR filing) filetype:pdf`, courtlistener: q, judyrecords: q, googlenews: `${q} lawsuit OR court` }),
-          forEntities: ['case_us'],
-          triggers: /\b(court|case|lawsuit|legal|judgment|filing|docket)\b/i,
-        },
-        financial: {
-          icon: 'dollar',
-          title: 'Financial Research',
-          desc: 'SEC filings, earnings, reports',
-          engines: ['google', 'sec', 'googlenews'],
-          buildQuery: (q) => ({ default: `"${q}" (10-K OR annual report OR SEC filing) filetype:pdf`, sec: q, googlenews: `${q} earnings OR revenue` }),
-          triggers: /\b(financial|revenue|sec filing|10-k|earnings|investor|stock)\b/i,
-        },
         news: {
-          icon: 'newspaper',
-          title: 'News Search',
-          desc: 'Recent articles, press coverage',
-          engines: ['googlenews', 'google', 'twitter', 'reddit'],
-          buildQuery: (q) => {
-            const date = new Date(Date.now() - 30*24*60*60*1000).toISOString().split('T')[0];
-            return { googlenews: q, default: `${q} (news OR article) after:${date}`, twitter: `${q} filter:news`, reddit: q };
-          },
+          icon: 'newspaper', title: 'News Search', desc: 'Recent articles, press coverage',
+          engines: ['googlenews', 'duckduckgohtml', 'twitter', 'reddit'],
+          buildQuery: (q) => ({ googlenews: q, default: `${q} news`, twitter: `${q}`, reddit: q }),
           triggers: /\b(news|latest|recent|article|press|headlines)\b/i,
         },
-        location: {
-          icon: 'mappin',
-          title: 'Location Search',
-          desc: 'Maps, satellite, address lookup',
-          engines: ['googlemaps', 'google'],
-          buildQuery: (q) => ({ googlemaps: q, default: `${q} location address` }),
-          forEntities: ['coordinates'],
-          triggers: /\b(location|address|where|map|coordinates)\b/i,
-        },
         code: {
-          icon: 'code',
-          title: 'Code Search',
-          desc: 'Repositories, snippets, docs',
-          engines: ['github', 'gitlab', 'searchcode', 'stackoverflow', 'google'],
-          buildQuery: (q) => ({ github: q, gitlab: q, searchcode: q, stackoverflow: q, default: `${q} (source code OR github)` }),
+          icon: 'code', title: 'Code Search', desc: 'Repositories, snippets, docs',
+          engines: ['github', 'gitlab', 'searchcode', 'stackoverflow'],
+          buildQuery: (q) => ({ github: q, gitlab: q, searchcode: q, stackoverflow: q, default: `${q} code` }),
           triggers: /\b(code|source|repository|repo|github|function|script|bug|error)\b/i,
         },
-        archive: {
-          icon: 'archive',
-          title: 'Archive Search',
-          desc: 'Wayback, cached versions',
-          engines: ['wayback', 'archive', 'google'],
-          buildQuery: (q) => ({ wayback: q, archive: q, default: `cache:${q}` }),
-          triggers: /\b(archive|wayback|cached|old version|history)\b/i,
-        },
         general: {
-          icon: 'search',
-          title: 'General Search',
-          desc: 'Standard web search',
-          engines: ['google', 'bing', 'ddg', 'brave'],
-          buildQuery: (q) => ({ google: q, bing: q, ddg: q, brave: q, default: q }),
+          icon: 'search', title: 'General Search', desc: 'Standard web search',
+          engines: ['duckduckgohtml', 'bing', 'brave'],
+          buildQuery: (q) => ({ duckduckgohtml: q, bing: q, brave: q, default: q }),
         },
       },
 
-      //=========================================
-      // ANALYZE QUERY
-      //=========================================
       analyze(query) {
-        const result = {
-          query: query,
-          entities: [],
-          recommendedOptions: [],
-          allOptions: [],
-        };
+        const result = { query, entities: [], recommendedOptions: [], allOptions: [] };
 
-        // Detect entities
         for (const [type, config] of Object.entries(this.entities)) {
           const matches = query.match(config.pattern);
           if (matches) {
-            result.entities.push({
-              type,
-              label: config.label,
-              values: [...new Set(matches)],
-              country: config.country,
-              category: config.category,
-              sensitive: config.sensitive,
-            });
+            result.entities.push({ type, label: config.label, values: [...new Set(matches)], country: config.country, category: config.category });
           }
         }
 
-        // Find matching options based on entities
         const entityTypes = result.entities.map(e => e.type);
         for (const [key, opt] of Object.entries(this.searchOptions)) {
           if (opt.forEntities?.some(e => entityTypes.includes(e))) {
@@ -725,14 +892,12 @@
           }
         }
 
-        // Find matching options based on intent triggers
         for (const [key, opt] of Object.entries(this.searchOptions)) {
           if (opt.triggers?.test(query) && !result.recommendedOptions.some(r => r.key === key)) {
             result.recommendedOptions.push({ key, ...opt, reason: 'intent' });
           }
         }
 
-        // If no recommendations, check if it looks like a name (capitalized words)
         if (result.recommendedOptions.length === 0) {
           const namePattern = /^[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+$/;
           if (namePattern.test(query.trim())) {
@@ -740,12 +905,10 @@
           }
         }
 
-        // Add general search if no specific recommendations
         if (result.recommendedOptions.length === 0) {
           result.recommendedOptions.push({ key: 'general', ...this.searchOptions.general, reason: 'default' });
         }
 
-        // All other options
         result.allOptions = Object.entries(this.searchOptions)
           .filter(([key]) => !result.recommendedOptions.some(r => r.key === key))
           .map(([key, opt]) => ({ key, ...opt }));
@@ -753,39 +916,51 @@
         return result;
       },
 
-      //=========================================
-      // EXECUTE SEARCH
-      //=========================================
-      executeSearch(query, optionKey, mode = 'redirect') {
+      getSearchUrls(query, optionKey) {
         const option = this.searchOptions[optionKey];
-        if (!option) return;
+        if (!option) return [];
 
         const queries = option.buildQuery(query);
-        const searches = option.engines
-          .filter(eng => queries[eng] !== null && queries[eng] !== undefined)
+        return option.engines
+          .filter(eng => queries[eng] !== null && queries[eng] !== undefined && this.engines[eng])
           .map(eng => ({
             engine: eng,
+            name: this.engineNames[eng] || eng,
             url: this.engines[eng](queries[eng] || queries.default || query),
             query: queries[eng] || queries.default || query,
           }));
-
-        if (mode === 'tabs') {
-          searches.forEach((s, i) => {
-            setTimeout(() => window.open(s.url, '_blank'), i * 150);
-          });
-        } else {
-          window.location.href = searches[0].url;
-        }
-
-        return searches;
       }
     };
 
-    //=========================================
-    // UI RENDERING
-    //=========================================
+    // State management
+    let currentState = { view: 'search', query: '', optionKey: '', results: {} };
+
+    function renderSearchBox() {
+      const app = document.getElementById('app');
+      app.className = 'container centered';
+      app.innerHTML = `
+        <div class="query-display">
+          <div class="query-label">OSINT Query Processor</div>
+        </div>
+        <form class="search-box" id="search-form">
+          <input type="text" class="search-input" id="search-input" placeholder="Enter name, email, phone, domain, IP..." autofocus>
+          <button type="submit" class="search-btn">Analyze</button>
+        </form>
+        <div class="footer" style="margin-top: 16px;">Enter any query to detect entities and get search options</div>
+      `;
+
+      document.getElementById('search-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const query = document.getElementById('search-input').value.trim();
+        if (query) {
+          window.location.href = `?q=${encodeURIComponent(query)}`;
+        }
+      });
+    }
+
     function renderUI(analysis) {
       const app = document.getElementById('app');
+      app.className = 'container centered';
 
       let html = `
         <div class="query-display">
@@ -803,14 +978,12 @@
             </div>
           ` : ''}
         </div>
-
         <div class="filter-container">
           <span class="filter-icon">${getIcon('search')}</span>
           <input type="text" class="filter-input" id="option-filter" placeholder="Filter options..." autocomplete="off">
         </div>
       `;
 
-      // Recommended options
       if (analysis.recommendedOptions.length > 0) {
         html += `
           <div class="section-title" data-section="recommended">Recommended</div>
@@ -820,7 +993,6 @@
         `;
       }
 
-      // Other options
       if (analysis.allOptions.length > 0) {
         html += `
           <div class="divider" data-section="other"></div>
@@ -833,68 +1005,48 @@
 
       html += `
         <div class="no-results" id="no-results" style="display: none;">No options match your filter</div>
-        <div class="footer">
-          Click an option to search • Hold Shift+Click to open all engines in tabs
-        </div>
+        <div class="footer">Click an option to fetch and aggregate results from all sources</div>
       `;
 
       app.innerHTML = html;
 
-      // Add click handlers
       document.querySelectorAll('.option-card').forEach(card => {
         card.addEventListener('click', (e) => {
           e.preventDefault();
           const optionKey = card.dataset.option;
-          const mode = e.shiftKey ? 'tabs' : 'redirect';
-          OSINT.executeSearch(analysis.query, optionKey, mode);
+          startAggregatedSearch(analysis.query, optionKey);
         });
       });
 
-      // Add filter functionality
+      // Filter functionality
       const filterInput = document.getElementById('option-filter');
       filterInput.addEventListener('input', (e) => {
         const filterValue = e.target.value.toLowerCase().trim();
         const allCards = document.querySelectorAll('.option-card');
-        let visibleRecommended = 0;
-        let visibleOther = 0;
+        let visibleRecommended = 0, visibleOther = 0;
 
         allCards.forEach(card => {
           const title = card.querySelector('.option-title').textContent.toLowerCase();
           const desc = card.querySelector('.option-desc').textContent.toLowerCase();
           const engines = card.querySelector('.engines-preview').textContent.toLowerCase();
           const matches = title.includes(filterValue) || desc.includes(filterValue) || engines.includes(filterValue);
-
           card.classList.toggle('hidden', !matches);
-
-          if (matches) {
-            if (card.classList.contains('recommended')) {
-              visibleRecommended++;
-            } else {
-              visibleOther++;
-            }
-          }
+          if (matches) card.classList.contains('recommended') ? visibleRecommended++ : visibleOther++;
         });
 
-        // Show/hide section headers
-        const recommendedSection = document.querySelectorAll('[data-section="recommended"]');
-        const otherSection = document.querySelectorAll('[data-section="other"]');
-        const noResults = document.getElementById('no-results');
-
-        recommendedSection.forEach(el => el.style.display = visibleRecommended > 0 ? '' : 'none');
+        document.querySelectorAll('[data-section="recommended"]').forEach(el => el.style.display = visibleRecommended > 0 ? '' : 'none');
         document.querySelector('[data-grid="recommended"]').style.display = visibleRecommended > 0 ? '' : 'none';
-
         if (document.querySelector('[data-grid="other"]')) {
-          otherSection.forEach(el => el.style.display = visibleOther > 0 ? '' : 'none');
+          document.querySelectorAll('[data-section="other"]').forEach(el => el.style.display = visibleOther > 0 ? '' : 'none');
           document.querySelector('[data-grid="other"]').style.display = visibleOther > 0 ? '' : 'none';
         }
-
-        noResults.style.display = (visibleRecommended + visibleOther === 0) ? '' : 'none';
+        document.getElementById('no-results').style.display = (visibleRecommended + visibleOther === 0) ? '' : 'none';
       });
     }
 
     function renderOption(opt, query, recommended) {
       const engineCount = opt.engines.length;
-      const enginePreview = opt.engines.slice(0, 4).join(', ') + (engineCount > 4 ? ` +${engineCount - 4}` : '');
+      const enginePreview = opt.engines.slice(0, 4).map(e => OSINT.engineNames[e] || e).join(', ') + (engineCount > 4 ? ` +${engineCount - 4}` : '');
 
       return `
         <a href="#" class="option-card ${recommended ? 'recommended' : ''}" data-option="${opt.key}">
@@ -909,28 +1061,169 @@
       `;
     }
 
-    function renderSearchBox() {
+    async function startAggregatedSearch(query, optionKey) {
+      const option = OSINT.searchOptions[optionKey];
+      const searches = OSINT.getSearchUrls(query, optionKey);
+
+      currentState = { view: 'results', query, optionKey, results: {}, searches };
+
+      // Initialize results state
+      searches.forEach(s => {
+        currentState.results[s.engine] = { status: 'loading', results: [], url: s.url, name: s.name };
+      });
+
+      renderResultsView();
+
+      // Fetch all sources in parallel
+      const fetchPromises = searches.map(async (search) => {
+        try {
+          const html = await fetchWithProxy(search.url, 15000);
+          const results = parseResults(html, search.engine, search.url);
+          currentState.results[search.engine] = {
+            status: results.length > 0 ? 'success' : 'partial',
+            results,
+            url: search.url,
+            name: search.name
+          };
+        } catch (error) {
+          currentState.results[search.engine] = {
+            status: 'error',
+            results: [],
+            url: search.url,
+            name: search.name,
+            error: error.message
+          };
+        }
+        updateSourceCard(search.engine);
+        updateStats();
+      });
+
+      await Promise.allSettled(fetchPromises);
+    }
+
+    function renderResultsView() {
       const app = document.getElementById('app');
+      app.className = 'container';
+      const option = OSINT.searchOptions[currentState.optionKey];
+      const totalSources = currentState.searches.length;
+
       app.innerHTML = `
-        <div class="query-display">
-          <div class="query-label">OSINT Query Processor</div>
+        <div class="results-header">
+          <button class="back-btn" onclick="goBack()">${getIcon('arrowLeft')} Back</button>
+          <div class="results-title">
+            <h2>${getIcon(option.icon)} ${option.title}</h2>
+            <div class="subtitle">Searching "${escapeHtml(currentState.query)}" across ${totalSources} sources</div>
+          </div>
+          <button class="open-all-btn" onclick="openAllSources()">${getIcon('tabs')} Open All</button>
         </div>
-        <form class="search-box" id="search-form">
-          <input type="text" class="search-input" id="search-input" placeholder="Enter name, email, phone, domain, IP..." autofocus>
-          <button type="submit" class="search-btn">Analyze</button>
-        </form>
-        <div class="footer" style="margin-top: 16px;">
-          Enter any query to detect entities and get search options
+
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width: 0%"></div></div>
+
+        <div class="results-stats">
+          <div class="stat-item"><div class="stat-value" id="stat-completed">0</div><div class="stat-label">Completed</div></div>
+          <div class="stat-item"><div class="stat-value" id="stat-results">0</div><div class="stat-label">Results Found</div></div>
+          <div class="stat-item"><div class="stat-value" id="stat-sources">${totalSources}</div><div class="stat-label">Sources</div></div>
+        </div>
+
+        <div class="results-list" id="results-list">
+          ${currentState.searches.map(s => renderSourceCard(s.engine)).join('')}
         </div>
       `;
+    }
 
-      document.getElementById('search-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const query = document.getElementById('search-input').value.trim();
-        if (query) {
-          window.location.href = `?q=${encodeURIComponent(query)}`;
-        }
+    function renderSourceCard(engine) {
+      const data = currentState.results[engine];
+      const initials = data.name.substring(0, 2).toUpperCase();
+
+      return `
+        <div class="source-card" id="source-${engine}" data-engine="${engine}">
+          <div class="source-header" onclick="toggleSource('${engine}')">
+            <div class="source-icon">${initials}</div>
+            <div class="source-name">${data.name}</div>
+            <div class="source-status ${data.status}" id="status-${engine}">
+              ${data.status === 'loading' ? '<div class="spinner-small"></div>' : ''}
+              ${data.status === 'success' ? `${data.results.length} results` : ''}
+              ${data.status === 'partial' ? 'No results' : ''}
+              ${data.status === 'error' ? 'Failed' : ''}
+            </div>
+            <div class="source-expand">${getIcon('chevronDown')}</div>
+          </div>
+          <div class="source-results" id="results-${engine}">
+            ${renderSourceResults(engine)}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSourceResults(engine) {
+      const data = currentState.results[engine];
+
+      if (data.status === 'loading') {
+        return '<div class="empty-results">Loading...</div>';
+      }
+
+      let html = '';
+
+      if (data.results.length > 0) {
+        html += data.results.map(r => `
+          <div class="result-item">
+            <a href="${escapeHtml(r.url)}" target="_blank" class="result-title">${escapeHtml(r.title)}</a>
+            ${r.snippet ? `<div class="result-snippet">${escapeHtml(r.snippet)}</div>` : ''}
+            <div class="result-url">${escapeHtml(r.url.substring(0, 80))}${r.url.length > 80 ? '...' : ''}</div>
+          </div>
+        `).join('');
+      } else if (data.status !== 'loading') {
+        html += '<div class="empty-results">No results could be extracted. Click below to view the source directly.</div>';
+      }
+
+      html += `<a href="${data.url}" target="_blank" class="open-source-btn">${getIcon('externalLink')} Open ${data.name} directly</a>`;
+
+      return html;
+    }
+
+    function updateSourceCard(engine) {
+      const card = document.getElementById(`source-${engine}`);
+      const statusEl = document.getElementById(`status-${engine}`);
+      const resultsEl = document.getElementById(`results-${engine}`);
+      const data = currentState.results[engine];
+
+      if (statusEl) {
+        statusEl.className = `source-status ${data.status}`;
+        statusEl.innerHTML = data.status === 'success' ? `${data.results.length} results` :
+                            data.status === 'partial' ? 'No results' :
+                            data.status === 'error' ? 'Failed' : '<div class="spinner-small"></div>';
+      }
+
+      if (resultsEl) {
+        resultsEl.innerHTML = renderSourceResults(engine);
+      }
+    }
+
+    function updateStats() {
+      const results = Object.values(currentState.results);
+      const completed = results.filter(r => r.status !== 'loading').length;
+      const totalResults = results.reduce((sum, r) => sum + r.results.length, 0);
+      const total = results.length;
+
+      document.getElementById('stat-completed').textContent = completed;
+      document.getElementById('stat-results').textContent = totalResults;
+      document.getElementById('progress-fill').style.width = `${(completed / total) * 100}%`;
+    }
+
+    function toggleSource(engine) {
+      const card = document.getElementById(`source-${engine}`);
+      card.classList.toggle('expanded');
+    }
+
+    function openAllSources() {
+      currentState.searches.forEach((s, i) => {
+        setTimeout(() => window.open(s.url, '_blank'), i * 200);
       });
+    }
+
+    function goBack() {
+      const query = currentState.query;
+      window.location.href = `?q=${encodeURIComponent(query)}`;
     }
 
     function escapeHtml(text) {
@@ -939,36 +1232,17 @@
       return div.innerHTML;
     }
 
-    //=========================================
-    // MAIN
-    //=========================================
+    // Main
     (function() {
       const params = new URLSearchParams(window.location.search);
       const query = params.get('q');
-      const auto = params.get('auto');
-      const option = params.get('opt');
 
-      // No query - show search box
       if (!query) {
         renderSearchBox();
         return;
       }
 
-      // Auto mode with option - execute immediately
-      if (auto && option && OSINT.searchOptions[option]) {
-        OSINT.executeSearch(query, option, auto === 'tabs' ? 'tabs' : 'redirect');
-        return;
-      }
-
-      // Analyze and show UI
       const analysis = OSINT.analyze(query);
-      
-      // If auto mode without option, use first recommended
-      if (auto && analysis.recommendedOptions.length > 0) {
-        OSINT.executeSearch(query, analysis.recommendedOptions[0].key, auto === 'tabs' ? 'tabs' : 'redirect');
-        return;
-      }
-
       renderUI(analysis);
     })();
   </script>
