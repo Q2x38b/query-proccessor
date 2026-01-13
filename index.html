@@ -237,10 +237,21 @@
       border: 1px solid #252525;
       border-radius: 12px;
       font-size: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+    .entity-pill:hover {
+      background: #1a2a3a;
+      border-color: #3a5a7a;
+      transform: translateY(-1px);
     }
     .entity-pill .type { color: #666; }
     .entity-pill .value { color: #7ac; margin-left: 4px; }
     .entity-pill .country { color: #a86; margin-left: 4px; font-size: 9px; }
+    .entity-pill .search-icon { margin-left: 6px; color: #555; font-size: 9px; }
     .filter-container {
       margin-bottom: 16px;
       position: relative;
@@ -547,12 +558,498 @@
       background: #151515;
       border-radius: 4px;
     }
+
+    /* Actual Search Results Styles */
+    .search-results-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .person-summary {
+      background: linear-gradient(135deg, #111 0%, #1a1a2a 100%);
+      border: 1px solid #2a3a4a;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .person-summary-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 12px;
+      object-fit: cover;
+      background: #222;
+      flex-shrink: 0;
+    }
+
+    .person-summary-image.placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: #444;
+    }
+
+    .person-summary-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .person-summary-title {
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .person-summary-source {
+      font-size: 11px;
+      color: #5a8a9a;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .person-summary-source img {
+      width: 14px;
+      height: 14px;
+      border-radius: 2px;
+    }
+
+    .person-summary-desc {
+      font-size: 14px;
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    .infobox {
+      background: #151520;
+      border: 1px solid #252535;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+
+    .infobox-title {
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .infobox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .infobox-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .infobox-label {
+      font-size: 10px;
+      color: #555;
+      text-transform: uppercase;
+    }
+
+    .infobox-value {
+      font-size: 13px;
+      color: #bbb;
+    }
+
+    /* Quick Info Panel - Simple minimal list */
+    .quick-info-panel {
+      margin-bottom: 20px;
+    }
+
+    .quick-info-section {
+      margin-bottom: 12px;
+    }
+
+    .quick-info-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .quick-info-header {
+      font-size: 11px;
+      font-weight: 500;
+      color: #6a7a8a;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .quick-info-grid {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .quick-info-item {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid #1a2535;
+    }
+
+    .quick-info-item:last-child {
+      border-bottom: none;
+    }
+
+    .quick-info-label {
+      font-size: 13px;
+      color: #7a8a9a;
+      min-width: 100px;
+      flex-shrink: 0;
+    }
+
+    .quick-info-value {
+      font-size: 13px;
+      color: #c5cdd5;
+      word-break: break-word;
+      flex: 1;
+    }
+
+    .quick-info-link {
+      font-size: 12px;
+      color: #5a9fcf;
+      text-decoration: none;
+      margin-left: 8px;
+      flex-shrink: 0;
+    }
+
+    .quick-info-link:hover {
+      color: #7ac;
+    }
+
+    .results-section {
+      margin-bottom: 32px;
+    }
+
+    .results-section-title {
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #222;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .results-section-count {
+      background: #1a2a3a;
+      color: #7ac;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 10px;
+    }
+
+    /* Domain Group Dropdowns */
+    .domain-group {
+      margin-bottom: 16px;
+      border: 1px solid #222;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #111;
+    }
+    .domain-group-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: #151515;
+      cursor: pointer;
+      transition: background 0.2s;
+      user-select: none;
+    }
+    .domain-group-header:hover {
+      background: #1a1a1a;
+    }
+    .domain-group-header.collapsed {
+      border-bottom: none;
+    }
+    .domain-group-toggle {
+      width: 16px;
+      height: 16px;
+      color: #666;
+      transition: transform 0.2s;
+    }
+    .domain-group-header.collapsed .domain-group-toggle {
+      transform: rotate(-90deg);
+    }
+    .domain-group-favicon {
+      width: 16px;
+      height: 16px;
+      border-radius: 2px;
+    }
+    .domain-group-name {
+      font-size: 13px;
+      color: #ccc;
+      font-weight: 500;
+      flex: 1;
+    }
+    .domain-group-count {
+      font-size: 11px;
+      color: #666;
+      background: #1a1a1a;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .domain-group-content {
+      padding: 8px;
+      border-top: 1px solid #222;
+    }
+    .domain-group-header.collapsed + .domain-group-content {
+      display: none;
+    }
+    .domain-group .result-card {
+      margin-bottom: 8px;
+    }
+    .domain-group .result-card:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Simple Google-style results */
+    .result-item {
+      margin-bottom: 20px;
+      max-width: 600px;
+    }
+    .result-item a.result-title {
+      font-size: 18px;
+      color: #8ab4f8;
+      text-decoration: none;
+      line-height: 1.3;
+      display: block;
+    }
+    .result-item a.result-title:hover {
+      text-decoration: underline;
+    }
+    .result-item .result-url {
+      font-size: 12px;
+      color: #bdc1c6;
+      margin: 2px 0 4px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .result-item .result-snippet {
+      font-size: 13px;
+      color: #9aa0a6;
+      line-height: 1.5;
+    }
+    .result-item .result-source {
+      font-size: 10px;
+      color: #5f6368;
+      margin-top: 4px;
+    }
+    /* Data results (key-value pairs) */
+    .data-result {
+      display: flex;
+      gap: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .data-result .data-label {
+      font-size: 12px;
+      color: #5f6368;
+      min-width: 120px;
+    }
+    .data-result .data-value {
+      font-size: 13px;
+      color: #e8eaed;
+    }
+    .results-section {
+      margin-bottom: 24px;
+    }
+    .results-section-title {
+      font-size: 11px;
+      color: #5f6368;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .related-people {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .related-person {
+      background: #151515;
+      border: 1px solid #252525;
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .related-person:hover {
+      background: #1a1a1a;
+      border-color: #333;
+    }
+
+    .related-person-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .related-person-name {
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    .loading-results {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      color: #555;
+    }
+
+    .loading-results .spinner {
+      margin-bottom: 16px;
+    }
+
+    .loading-sources {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .loading-source {
+      font-size: 10px;
+      padding: 4px 10px;
+      background: #1a1a1a;
+      border-radius: 4px;
+      color: #666;
+    }
+
+    .loading-source.active {
+      background: #1a2a3a;
+      color: #7ac;
+      animation: pulse 1s infinite;
+    }
+
+    .loading-source.done {
+      background: #1a2a1a;
+      color: #6a6;
+    }
+
+    .no-results-found {
+      text-align: center;
+      padding: 40px;
+      color: #555;
+    }
+
+    .no-results-found-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      opacity: 0.5;
+    }
+
+    .source-tabs-mini {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .source-tab-mini {
+      font-size: 11px;
+      padding: 6px 12px;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 4px;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .source-tab-mini:hover {
+      background: #222;
+      color: #888;
+    }
+
+    .source-tab-mini.active {
+      background: #1a2a3a;
+      border-color: #3a5a7a;
+      color: #7ac;
+    }
+
+    .source-tab-mini .count {
+      margin-left: 4px;
+      opacity: 0.7;
+    }
+
+    .nlp-entities {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .nlp-entity {
+      padding: 4px 12px;
+      background: #151520;
+      border: 1px solid #252535;
+      border-radius: 16px;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nlp-entity-type {
+      color: #666;
+      text-transform: uppercase;
+      font-size: 9px;
+    }
+
+    .nlp-entity-value {
+      color: #7ac;
+    }
+
+    .nlp-entity.person { border-color: #3a4a5a; background: #151a20; }
+    .nlp-entity.organization { border-color: #4a3a5a; background: #1a1520; }
+    .nlp-entity.place { border-color: #3a5a4a; background: #151a18; }
   </style>
 </head>
 <body>
   <div class="container" id="app">
     <div class="spinner"></div>
   </div>
+
+  <!-- NLP and Search modules -->
+  <script src="nlp.js"></script>
+  <script src="search.js"></script>
 
   <script>
     // SVG Icons - minimal stroke-based icons
@@ -680,9 +1177,12 @@
       //=========================================
       entities: {
         email: { pattern: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, category: 'contact', label: 'Email' },
-        phone_us: { pattern: /\b(?:\+1[-.\s]?)?(?:\([0-9]{3}\)|[0-9]{3})[-.\s]?[0-9]{3}[-.\s]?[0-9]{4}\b/g, category: 'contact', country: 'US', label: 'Phone' },
-        phone_uk: { pattern: /\b(?:\+44[-.\s]?|0)(?:7[0-9]{9}|[1-9][0-9]{8,9})\b/g, category: 'contact', country: 'UK', label: 'Phone' },
-        phone_intl: { pattern: /\+[1-9]\d{6,14}\b/g, category: 'contact', country: 'INTL', label: 'Phone' },
+        // Improved phone patterns - handles more formats
+        phone_us: { pattern: /\b(?:\+?1[-.\s]?)?(?:\(?[2-9]\d{2}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}\b/g, category: 'contact', country: 'US', label: 'Phone' },
+        phone_uk: { pattern: /\b(?:\+44[-.\s]?|0)(?:7\d{3}[-.\s]?\d{3}[-.\s]?\d{3}|[1-9]\d{2,3}[-.\s]?\d{3,4}[-.\s]?\d{3,4})\b/g, category: 'contact', country: 'UK', label: 'Phone' },
+        phone_intl: { pattern: /\+[1-9]\d{1,3}[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}\b/g, category: 'contact', country: 'INTL', label: 'Phone' },
+        // Generic phone - catches 10+ digit numbers that look like phones
+        phone_generic: { pattern: /\b\d{3}[-.\s]?\d{3}[-.\s]?\d{4}\b/g, category: 'contact', label: 'Phone' },
         ip: { pattern: /\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/g, category: 'network', label: 'IP Address' },
         domain: { pattern: /\b(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:com|net|org|edu|gov|mil|io|co|ai|dev|app|xyz|info|biz|me|tv|us|uk|de|fr|ru|cn|jp|[a-z]{2})\b/gi, category: 'network', label: 'Domain' },
         url: { pattern: /https?:\/\/[^\s<>"']+/g, category: 'network', label: 'URL' },
@@ -696,7 +1196,12 @@
         sha1: { pattern: /\b[a-fA-F0-9]{40}\b/g, category: 'hash', label: 'SHA1 Hash' },
         sha256: { pattern: /\b[a-fA-F0-9]{64}\b/g, category: 'hash', label: 'SHA256 Hash' },
         ssn_us: { pattern: /\b\d{3}-\d{2}-\d{4}\b/g, category: 'id', country: 'US', label: 'SSN', sensitive: true },
-        vin: { pattern: /\b[A-HJ-NPR-Z0-9]{17}\b/g, category: 'vehicle', label: 'VIN' },
+        // Improved VIN - must start with valid WMI, 17 chars, no I/O/Q
+        vin: { pattern: /\b[A-HJ-NPR-Z0-9]{3}[A-HJ-NPR-Z0-9]{5}[A-HJ-NPR-Z0-9][A-HJ-NPR-Z0-9]{8}\b/g, category: 'vehicle', label: 'VIN' },
+        // Serial number pattern - alphanumeric 6-20 chars
+        serial: { pattern: /\b[A-Z0-9]{6,20}\b/g, category: 'property', label: 'Serial Number' },
+        // IMEI - 15 digit device identifier
+        imei: { pattern: /\b\d{15}\b/g, category: 'property', label: 'IMEI' },
         plate_us: { pattern: /\b[A-Z0-9]{1,3}[-\s]?[A-Z0-9]{2,4}[-\s]?[A-Z0-9]{0,4}\b/g, category: 'vehicle', country: 'US', label: 'License Plate' },
         plate_uk: { pattern: /\b[A-Z]{2}\d{2}[-\s]?[A-Z]{3}\b/gi, category: 'vehicle', country: 'UK', label: 'License Plate' },
         plate_eu: { pattern: /\b[A-Z]{1,3}[-\s]?[A-Z0-9]{1,4}[-\s]?[A-Z0-9]{1,4}\b/g, category: 'vehicle', country: 'EU', label: 'License Plate' },
@@ -717,112 +1222,98 @@
       // SEARCH OPTIONS (Categories)
       //=========================================
       searchOptions: {
-        person: {
-          icon: 'person',
-          title: 'Person Search',
-          desc: 'Multi-source: social, records, background',
-          engines: ['google', 'linkedin', 'twitter', 'facebook', 'instagram', 'truepeoplesearch', 'thatsthem', 'whitepages', 'spokeo', 'peekyou', 'fastpeoplesearch', 'webmii', 'usphonebook', 'familytreenow', 'zabasearch', 'radaris', 'pipl'],
-          buildQuery: (q) => ({
-            default: `"${q}" (profile OR bio OR contact OR person)`,
-            linkedin: q,
-            twitter: q,
-            facebook: q,
-            instagram: q,
-            truepeoplesearch: q,
-            thatsthem: q,
-            whitepages: q,
-            spokeo: q,
-            peekyou: q,
-            fastpeoplesearch: q,
-            webmii: q,
-            usphonebook: q,
-            familytreenow: q,
-            zabasearch: q,
-            radaris: q,
-            pipl: q
-          }),
-          triggers: /\b(who is|person|people|find person|lookup|background|investigate|full name|named)\b/i,
+        // Combined: People Intelligence + Person Search
+        peopleIntel: {
+          icon: 'username',
+          title: 'People Search',
+          desc: 'Deep search: social media, public records, property, court records',
+          engines: ['cse', 'wikipedia', 'duckduckgo', 'wikidata', 'google', 'truepeoplesearch', 'whitepages', 'peekyou', 'webmii', 'linkedin', 'twitter', 'facebook', 'reddit', 'propertyrecords', 'courtrecords'],
+          useRealResults: true,
+          cseId: '20e0bdcc4fe9a4599',
+          buildQuery: (q) => ({ default: q }),
+          triggers: /\b(deep search|investigate person|people intel|who is|find person|background check|dossier|person|people|lookup|investigate|full name|named)\b/i,
+          forEntities: ['person'],
         },
         phone: {
           icon: 'phone',
           title: 'Phone Lookup',
-          desc: 'Reverse phone search, carrier info',
-          engines: ['google', 'truepeoplesearch', 'thatsthem', 'whitepages', 'spokeo'],
-          buildQuery: (q) => {
-            const clean = q.replace(/\D/g, '');
-            return { default: `"${q}" OR "${clean}"`, truepeoplesearch: q, thatsthem: q, whitepages: q, spokeo: q };
-          },
-          forEntities: ['phone_us', 'phone_uk', 'phone_intl'],
+          desc: 'Area code lookup, carrier info, public records',
+          engines: ['phone', 'truepeoplesearch', 'whitepages'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
+          forEntities: ['phone_us', 'phone_uk', 'phone_intl', 'phone_generic'],
         },
         email: {
           icon: 'email',
           title: 'Email OSINT',
           desc: 'Breaches, accounts, associated profiles',
-          engines: ['google', 'hibp', 'dehashed', 'intelx', 'snusbase', 'github', 'linkedin', 'pastes'],
-          buildQuery: (q) => ({ default: `"${q}"`, hibp: q, dehashed: q, intelx: q, snusbase: q, github: `"${q}"`, linkedin: q.split('@')[0], pastes: q }),
+          engines: ['google', 'hibp', 'github', 'linkedin', 'reddit'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           forEntities: ['email'],
         },
         username: {
           icon: 'username',
           title: 'Username Search',
           desc: 'Cross-platform social presence',
-          engines: ['google', 'twitter', 'reddit', 'github', 'instagram', 'tiktok', 'youtube', 'telegram'],
-          buildQuery: (q) => {
-            const clean = q.replace('@', '');
-            return { default: `"${clean}" OR "@${clean}" OR inurl:${clean}`, twitter: clean, reddit: `author:${clean}`, github: clean, instagram: clean, tiktok: clean, youtube: clean, telegram: clean };
-          },
+          engines: ['google', 'twitter', 'reddit', 'github', 'instagram', 'tiktok', 'youtube'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           forEntities: ['username'],
         },
         domain: {
           icon: 'globe',
           title: 'Domain Intel',
-          desc: 'WHOIS, DNS, subdomains, certificates',
-          engines: ['google', 'whois', 'viewdns', 'crtsh', 'securitytrails', 'dnslytics', 'urlscan', 'wayback', 'shodan'],
-          buildQuery: (q) => {
-            const d = q.replace(/^https?:\/\//, '').split('/')[0];
-            return { default: `"${d}" OR site:${d}`, whois: d, viewdns: d, crtsh: `%.${d}`, securitytrails: d, dnslytics: d, urlscan: `domain:${d}`, wayback: d, shodan: `hostname:${d}` };
-          },
+          desc: 'RDAP WHOIS, DNS records, SSL certificates',
+          engines: ['rdap', 'dns', 'crtsh', 'shodan'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           forEntities: ['domain'],
           triggers: /\b(domain|website|site info|whois|subdomains|dns|certificate)\b/i,
         },
         ip: {
           icon: 'server',
           title: 'IP Intelligence',
-          desc: 'Threat intel, geolocation, reputation',
-          engines: ['shodan', 'censys', 'greynoise', 'virustotal', 'pulsedive', 'alienvault', 'google'],
-          buildQuery: (q) => ({ shodan: `ip:${q}`, censys: `ip:${q}`, greynoise: `ip:${q}`, virustotal: q, pulsedive: q, alienvault: q, default: `"${q}"` }),
+          desc: 'Geolocation, ISP, ASN via free API',
+          engines: ['ipgeo', 'shodan', 'dns'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           forEntities: ['ip'],
         },
         company: {
           icon: 'building',
           title: 'Company Research',
-          desc: 'SEC filings, corporate records, news',
-          engines: ['google', 'linkedin', 'opencorporates', 'sec', 'crunchbase', 'companieshouse', 'googlenews'],
-          buildQuery: (q) => ({ default: `"${q}" (company OR inc OR llc OR corp) (about OR contact)`, linkedin: `${q} company`, opencorporates: q, sec: q, crunchbase: q, companieshouse: q, googlenews: `${q} company` }),
+          desc: 'SEC EDGAR filings, state records, court cases',
+          engines: ['secedgar', 'businessentity', 'courtrecords', 'opencorporates', 'crunchbase'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           triggers: /\b(company|business|corporation|org|organization|startup|firm|employer|inc|llc|ltd)\b/i,
         },
         breach: {
           icon: 'unlock',
           title: 'Breach Search',
           desc: 'Leaked data, exposed credentials',
-          engines: ['google', 'hibp', 'dehashed', 'intelx', 'snusbase', 'pastes'],
-          buildQuery: (q) => ({ default: `"${q}" (leak OR breach OR dump OR exposed)`, hibp: q, dehashed: q, intelx: q, snusbase: q, pastes: q }),
+          engines: ['google', 'hibp', 'reddit', 'hackernews'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           triggers: /\b(breach|leak|dump|exposed|hack|compromised|stolen|pwned)\b/i,
         },
         social: {
           icon: 'message',
           title: 'Social Media',
           desc: 'All major platforms',
-          engines: ['twitter', 'reddit', 'linkedin', 'facebook', 'instagram', 'tiktok', 'youtube', 'telegram'],
-          buildQuery: (q) => ({ twitter: q, reddit: q, linkedin: q, facebook: q, instagram: q, tiktok: q, youtube: q, telegram: q, default: q }),
+          engines: ['twitter', 'reddit', 'linkedin', 'facebook', 'instagram', 'tiktok', 'youtube'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           triggers: /\b(social media|twitter|facebook|instagram|linkedin|tiktok|reddit|youtube)\b/i,
         },
         image: {
           icon: 'image',
           title: 'Reverse Image',
           desc: 'Find image source and duplicates',
-          engines: ['googleimgrev', 'yandexrev', 'tineye'],
-          buildQuery: (q) => ({ googleimgrev: q, yandexrev: q, tineye: q, default: q }),
+          engines: ['google', 'tineye', 'yandexrev'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           forEntities: ['imageUrl'],
           triggers: /\b(reverse image|image search|find image|identify image|who is this)\b/i,
         },
@@ -830,36 +1321,37 @@
           icon: 'key',
           title: 'Hash Lookup',
           desc: 'Malware analysis, file reputation',
-          engines: ['virustotal', 'intelx', 'google'],
-          buildQuery: (q) => ({ virustotal: q, intelx: q, default: `"${q}" (malware OR virus OR hash)` }),
+          engines: ['virustotal', 'google', 'github'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           forEntities: ['md5', 'sha1', 'sha256'],
         },
         crypto: {
           icon: 'bitcoin',
           title: 'Crypto Address',
           desc: 'Transaction history, scam reports',
-          engines: ['blockchain', 'google', 'bitcoinabuse'],
-          buildQuery: (q) => {
-            const isEth = q.startsWith('0x');
-            return { blockchain: q, default: `"${q}" (scam OR fraud OR stolen)`, bitcoinabuse: isEth ? null : q, etherscan: isEth ? q : null };
-          },
+          engines: ['blockchain', 'google', 'bitcoinabuse', 'reddit'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           forEntities: ['btc', 'btc_bech32', 'eth'],
         },
         cve: {
           icon: 'shield',
           title: 'CVE Research',
           desc: 'Exploits, advisories, patches',
-          engines: ['google', 'github', 'shodan'],
-          buildQuery: (q) => ({ default: `${q} (exploit OR POC OR advisory)`, github: `${q} exploit OR POC`, shodan: `vuln:${q}` }),
+          engines: ['google', 'github', 'shodan', 'reddit'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           forEntities: ['cve'],
           triggers: /\b(vulnerability|cve|exploit|security|vuln|0day)\b/i,
         },
         vehicle: {
           icon: 'car',
           title: 'Vehicle Lookup',
-          desc: 'VIN decode, history, registration',
-          engines: ['nhtsa', 'google'],
-          buildQuery: (q) => ({ nhtsa: q, default: `"${q}" vehicle` }),
+          desc: 'VIN decode via NHTSA government API',
+          engines: ['nhtsa', 'nhtsarecalls'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           forEntities: ['vin'],
         },
         flight: {
@@ -867,7 +1359,8 @@
           title: 'Flight Tracking',
           desc: 'Real-time status, route history',
           engines: ['flightaware', 'flightradar', 'google'],
-          buildQuery: (q) => ({ flightaware: q, flightradar: q.toLowerCase(), default: `${q} flight status` }),
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           forEntities: ['flight'],
         },
         ship: {
@@ -875,15 +1368,17 @@
           title: 'Ship Tracking',
           desc: 'Vessel position, voyage data',
           engines: ['marinetraffic', 'vesselfinder', 'google'],
-          buildQuery: (q) => ({ marinetraffic: q.replace(/IMO[-\s]?/gi, ''), vesselfinder: q, default: `${q} vessel ship` }),
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           forEntities: ['imo'],
         },
         academic: {
           icon: 'book',
           title: 'Academic Search',
           desc: 'Papers, journals, citations',
-          engines: ['scholar', 'arxiv', 'semanticscholar', 'pubmed', 'google'],
-          buildQuery: (q) => ({ scholar: q, arxiv: q, semanticscholar: q, pubmed: q, default: `${q} (site:edu OR filetype:pdf) research` }),
+          engines: ['scholar', 'arxiv', 'google', 'wikipedia'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           forEntities: ['doi', 'isbn', 'arxiv'],
           triggers: /\b(research|study|paper|academic|journal|scientific|scholar|thesis)\b/i,
         },
@@ -892,43 +1387,45 @@
           title: 'Patent Search',
           desc: 'Patent databases, prior art',
           engines: ['googlepatents', 'google'],
-          buildQuery: (q) => ({ googlepatents: q, default: `"${q}" patent` }),
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           forEntities: ['patent'],
         },
         legal: {
           icon: 'scale',
           title: 'Legal Records',
           desc: 'Court cases, filings, judgments',
-          engines: ['google', 'courtlistener', 'judyrecords', 'googlenews'],
-          buildQuery: (q) => ({ default: `"${q}" (court OR case OR lawsuit OR filing) filetype:pdf`, courtlistener: q, judyrecords: q, googlenews: `${q} lawsuit OR court` }),
+          engines: ['courtrecords', 'courtlistener', 'googlenews'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           forEntities: ['case_us'],
           triggers: /\b(court|case|lawsuit|legal|judgment|filing|docket)\b/i,
         },
         financial: {
           icon: 'dollar',
           title: 'Financial Research',
-          desc: 'SEC filings, earnings, reports',
-          engines: ['google', 'sec', 'googlenews'],
-          buildQuery: (q) => ({ default: `"${q}" (10-K OR annual report OR SEC filing) filetype:pdf`, sec: q, googlenews: `${q} earnings OR revenue` }),
+          desc: 'SEC EDGAR filings, earnings, reports',
+          engines: ['secedgar', 'googlenews', 'reddit'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           triggers: /\b(financial|revenue|sec filing|10-k|earnings|investor|stock)\b/i,
         },
         news: {
           icon: 'newspaper',
           title: 'News Search',
           desc: 'Recent articles, press coverage',
-          engines: ['googlenews', 'google', 'twitter', 'reddit'],
-          buildQuery: (q) => {
-            const date = new Date(Date.now() - 30*24*60*60*1000).toISOString().split('T')[0];
-            return { googlenews: q, default: `${q} (news OR article) after:${date}`, twitter: `${q} filter:news`, reddit: q };
-          },
+          engines: ['googlenews', 'google', 'twitter', 'reddit', 'hackernews'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           triggers: /\b(news|latest|recent|article|press|headlines)\b/i,
         },
         location: {
           icon: 'mappin',
           title: 'Location Search',
           desc: 'Maps, satellite, address lookup',
-          engines: ['googlemaps', 'google'],
-          buildQuery: (q) => ({ googlemaps: q, default: `${q} location address` }),
+          engines: ['googlemaps', 'google', 'wikipedia'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           forEntities: ['coordinates'],
           triggers: /\b(location|address|where|map|coordinates)\b/i,
         },
@@ -936,8 +1433,9 @@
           icon: 'code',
           title: 'Code Search',
           desc: 'Repositories, snippets, docs',
-          engines: ['github', 'gitlab', 'searchcode', 'stackoverflow', 'google'],
-          buildQuery: (q) => ({ github: q, gitlab: q, searchcode: q, stackoverflow: q, default: `${q} (source code OR github)` }),
+          engines: ['github', 'stackoverflow', 'google', 'hackernews'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           triggers: /\b(code|source|repository|repo|github|function|script|bug|error)\b/i,
         },
         archive: {
@@ -945,15 +1443,301 @@
           title: 'Archive Search',
           desc: 'Wayback, cached versions',
           engines: ['wayback', 'archive', 'google'],
-          buildQuery: (q) => ({ wayback: q, archive: q, default: `cache:${q}` }),
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
           triggers: /\b(archive|wayback|cached|old version|history)\b/i,
+        },
+        // PDF 1: Government & ID Sources
+        government: {
+          icon: 'building',
+          title: 'Government Intel',
+          desc: 'Sanctions, embassies, power networks, ID verification',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'governmentSources',
+          buildQuery: (q) => ({ default: q }),
+          triggers: /\b(government|sanction|embassy|passport|visa|official|politician|power network)\b/i,
+        },
+        // PDF 2: Weapons & Equipment Sources
+        weapons: {
+          icon: 'shield',
+          title: 'Weapons & Equipment',
+          desc: 'Firearms, ordnance, military equipment identification',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'weaponsSources',
+          buildQuery: (q) => ({ default: q }),
+          triggers: /\b(gun|firearm|weapon|rifle|pistol|ammunition|bullet|tank|military equipment|ordnance|explosive)\b/i,
+        },
+        // Combined: PDF 3 (War & Conflict) + PDF 5 (Organized Crime)
+        crimeConflict: {
+          icon: 'scale',
+          title: 'Crime & Conflicts',
+          desc: 'War, terrorism, fugitives, gangs, trafficking, crisis monitoring',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollections: ['conflictSources', 'crimeSources'],
+          buildQuery: (q) => ({ default: q }),
+          triggers: /\b(war|conflict|terrorism|crisis|attack|violence|military operation|battle|fugitive|wanted|criminal|gang|mafia|cartel|trafficking|scam|fraud|organized crime)\b/i,
+        },
+        // PDF 4: Stolen Property Sources
+        stolenProperty: {
+          icon: 'unlock',
+          title: 'Stolen Property',
+          desc: 'Stolen art, vehicles, boats, firearms, devices',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'stolenPropertySources',
+          buildQuery: (q) => ({ default: q }),
+          forEntities: ['vin', 'serial', 'imei'],
+          triggers: /\b(stolen|lost|missing|theft|recovered|serial number|imei)\b/i,
+        },
+        // PDF 6: Data Sets & Archives
+        datasets: {
+          icon: 'archive',
+          title: 'Datasets & Archives',
+          desc: 'FOIA docs, research data, leaked databases, public records',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'datasetSources',
+          buildQuery: (q) => ({ default: q }),
+          triggers: /\b(dataset|archive|foia|leak|research data|public records|documents)\b/i,
+        },
+        // PDF 7: Real Estate
+        realEstate: {
+          icon: 'building',
+          title: 'Real Estate',
+          desc: 'Property records, ownership, valuations',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'realEstateSources',
+          buildQuery: (q) => ({ default: q }),
+          triggers: /\b(property|real estate|house|home|zillow|owner|landlord|address)\b/i,
+        },
+        // PDF 8: Gaming
+        gaming: {
+          icon: 'message',
+          title: 'Gaming Profiles',
+          desc: 'Steam, Xbox, PlayStation, game-specific lookups',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'gamingSources',
+          buildQuery: (q) => ({ default: q }),
+          triggers: /\b(steam|xbox|playstation|psn|gamertag|gaming|fortnite|minecraft|roblox)\b/i,
+        },
+        // PDF 9: Usernames
+        usernameOSINT: {
+          icon: 'username',
+          title: 'Username OSINT',
+          desc: 'Cross-platform username enumeration',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'usernameSources',
+          buildQuery: (q) => ({ default: q }),
+          triggers: /\b(username|handle|alias|screen name|nick|profile)\b/i,
+          forEntities: ['username'],
+        },
+        // PDF 10: Phone Numbers
+        phoneOSINT: {
+          icon: 'phone',
+          title: 'Phone OSINT',
+          desc: 'Global phone directories, reverse lookups',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'phoneNumberSources',
+          buildQuery: (q) => ({ default: q }),
+          forEntities: ['phone_us', 'phone_uk', 'phone_intl', 'phone_generic'],
+        },
+        // PDF 11: Email & Data Breach
+        emailOSINT: {
+          icon: 'email',
+          title: 'Email & Breach Intel',
+          desc: 'Email lookups, data breaches, PGP keys',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'emailSources',
+          buildQuery: (q) => ({ default: q }),
+          forEntities: ['email'],
+          triggers: /\b(email breach|pwned|data leak|credential|hibp|breach check)\b/i,
+        },
+        // PDF 12: People Investigation & Courts
+        peopleRecords: {
+          icon: 'person',
+          title: 'People & Court Records',
+          desc: 'Background checks, court records, inmate search, genealogy',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'peopleInvestigationSources',
+          buildQuery: (q) => ({ default: q }),
+          triggers: /\b(court record|inmate|criminal|sex offender|genealogy|obituary|background)\b/i,
+        },
+        // PDF 13: Deep Web & Darknet
+        darknet: {
+          icon: 'key',
+          title: 'Deep Web & Darknet',
+          desc: 'TOR search engines, onion sites, I2P, IPFS',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'darknetSources',
+          buildQuery: (q) => ({ default: q }),
+          triggers: /\b(darknet|dark web|onion|tor|deep web|i2p|ipfs)\b/i,
+        },
+        // PDF 14: Signals Intelligence
+        sigint: {
+          icon: 'wifi',
+          title: 'Signals Intelligence',
+          desc: 'Radio frequencies, HAM radio, callsigns',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'sigintSources',
+          buildQuery: (q) => ({ default: q }),
+          triggers: /\b(radio|ham radio|callsign|frequency|scanner|shortwave|sdr)\b/i,
+        },
+        // PDF 15: Digital Network Intelligence
+        dnint: {
+          icon: 'server',
+          title: 'Network Intelligence',
+          desc: 'WHOIS, DNS, IoT, CCTV, exploits, WiFi',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'dnintSources',
+          buildQuery: (q) => ({ default: q }),
+          triggers: /\b(whois|dns|shodan|censys|cctv|iot|wifi|exploit|cve|vulnerability)\b/i,
+        },
+        // PDF 16: Vehicle & Transportation
+        transport: {
+          icon: 'car',
+          title: 'Vehicle & Transport',
+          desc: 'VIN lookup, ships, aircraft, railways',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'vehicleSources',
+          buildQuery: (q) => ({ default: q }),
+          forEntities: ['vin', 'flight', 'imo'],
+          triggers: /\b(vin|vehicle|car|ship|vessel|aircraft|plane|flight|train|marine|aviation)\b/i,
+        },
+        // PDF 17: Financial Intelligence
+        finint: {
+          icon: 'dollar',
+          title: 'Financial Intel',
+          desc: 'Crypto, blockchain, SEC filings, banking',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'finintSources',
+          buildQuery: (q) => ({ default: q }),
+          forEntities: ['btc', 'btc_bech32', 'eth'],
+          triggers: /\b(bitcoin|ethereum|crypto|blockchain|wallet|sec filing|edgar|stock|bank|iban|swift)\b/i,
+        },
+        // PDF 18: Business & Trade Intelligence
+        tradint: {
+          icon: 'building',
+          title: 'Business & Trade',
+          desc: 'Companies, patents, trademarks, imports/exports',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'tradintSources',
+          buildQuery: (q) => ({ default: q }),
+          triggers: /\b(company|patent|trademark|import|export|business registry|corporate)\b/i,
+        },
+        // PDF 19: Orbital Intelligence
+        orbint: {
+          icon: 'plane',
+          title: 'Orbital Intel',
+          desc: 'Satellites, space debris, orbit tracking',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'orbintSources',
+          buildQuery: (q) => ({ default: q }),
+          triggers: /\b(satellite|orbit|space|debris|celestrak|tle|norad)\b/i,
+        },
+        // PDF 20: Imagery Intelligence
+        imint: {
+          icon: 'image',
+          title: 'Imagery Intel',
+          desc: 'Reverse image, face search, EXIF, geolocation',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'imintSources',
+          buildQuery: (q) => ({ default: q }),
+          forEntities: ['imageUrl'],
+          triggers: /\b(reverse image|face search|exif|image forensics|geolocation|pimeyes|tineye)\b/i,
+        },
+        // PDF 21: Social Media Intelligence
+        socmint: {
+          icon: 'users',
+          title: 'Social Media Intel',
+          desc: 'Facebook, Instagram, Twitter, Discord, Telegram, TikTok, Reddit, YouTube',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'socmintSources',
+          buildQuery: (q) => ({ default: q }),
+          forEntities: ['username', 'email'],
+          triggers: /\b(social media|facebook|instagram|twitter|discord|telegram|tiktok|reddit|youtube|linkedin|snapchat|whatsapp|twitch|vkontakte|4chan)\b/i,
+        },
+        // PDF 22: Mapping and Geospatial Intelligence
+        geoint: {
+          icon: 'map-pin',
+          title: 'Geospatial Intel',
+          desc: 'Maps, street view, weather, disasters, cell towers, satellites',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'geointSources',
+          buildQuery: (q) => ({ default: q }),
+          forEntities: ['address', 'coordinates'],
+          triggers: /\b(map|maps|geospatial|street view|satellite|weather|disaster|cell tower|geolocation|coordinates|gps)\b/i,
+        },
+        // PDF 23: Search Engines
+        searchEngines: {
+          icon: 'search',
+          title: 'Search Engines',
+          desc: 'General, meta, document, archive, code, paste, news search engines',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          osintCollection: 'searchEngineSources',
+          buildQuery: (q) => ({ default: q }),
+          triggers: /\b(search engine|google|bing|duckduckgo|yandex|baidu|archive|wayback|pastebin|github|code search)\b/i,
+        },
+        // Search All OSINT Sources
+        searchAll: {
+          icon: 'globe',
+          title: 'Search All OSINT',
+          desc: 'Comprehensive search across all 200+ OSINT sources',
+          engines: [],
+          useRealResults: true,
+          useOSINTSources: true,
+          searchAllOSINT: true,
+          buildQuery: (q) => ({ default: q }),
+          triggers: /\b(comprehensive|all sources|full osint|deep scan|everything)\b/i,
         },
         general: {
           icon: 'search',
           title: 'General Search',
           desc: 'Standard web search',
-          engines: ['google', 'bing', 'ddg', 'brave'],
-          buildQuery: (q) => ({ google: q, bing: q, ddg: q, brave: q, default: q }),
+          engines: ['google', 'duckduckgo', 'wikipedia', 'reddit'],
+          useRealResults: true,
+          buildQuery: (q) => ({ default: q }),
         },
       },
 
@@ -964,11 +1748,12 @@
         const result = {
           query: query,
           entities: [],
+          nlpEntities: [], // NLP-detected entities
           recommendedOptions: [],
           allOptions: [],
         };
 
-        // Detect entities
+        // Detect entities using regex patterns
         for (const [type, config] of Object.entries(this.entities)) {
           const matches = query.match(config.pattern);
           if (matches) {
@@ -979,6 +1764,77 @@
               country: config.country,
               category: config.category,
               sensitive: config.sensitive,
+            });
+          }
+        }
+
+        // Use NLP module for advanced entity detection if available
+        if (window.NLP && window.NLP.ready) {
+          try {
+            const nlpResults = window.NLP.extractEntities(query);
+
+            // Add detected people
+            if (nlpResults.people && nlpResults.people.length > 0) {
+              result.nlpEntities.push(...nlpResults.people.map(p => ({
+                type: 'person',
+                label: 'Person',
+                value: p.text,
+                normalized: p.normalized,
+                confidence: p.confidence,
+                source: 'nlp'
+              })));
+
+              // Add 'person' entity type for forEntities matching
+              if (!result.entities.some(e => e.type === 'person')) {
+                result.entities.push({
+                  type: 'person',
+                  label: 'Person',
+                  values: nlpResults.people.map(p => p.text),
+                  category: 'identity',
+                  source: 'nlp'
+                });
+              }
+            }
+
+            // Add detected organizations
+            if (nlpResults.organizations && nlpResults.organizations.length > 0) {
+              result.nlpEntities.push(...nlpResults.organizations.map(o => ({
+                type: 'organization',
+                label: 'Organization',
+                value: o.text,
+                source: 'nlp'
+              })));
+            }
+
+            // Add detected places
+            if (nlpResults.places && nlpResults.places.length > 0) {
+              result.nlpEntities.push(...nlpResults.places.map(p => ({
+                type: 'place',
+                label: 'Place',
+                value: p.text,
+                source: 'nlp'
+              })));
+            }
+          } catch (e) {
+            console.warn('NLP analysis failed:', e);
+          }
+        } else {
+          // Fallback: check if it looks like a name (capitalized words)
+          const namePattern = /^[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+$/;
+          if (namePattern.test(query.trim())) {
+            result.entities.push({
+              type: 'person',
+              label: 'Person',
+              values: [query.trim()],
+              category: 'identity',
+              source: 'pattern'
+            });
+            result.nlpEntities.push({
+              type: 'person',
+              label: 'Person',
+              value: query.trim(),
+              confidence: 0.7,
+              source: 'pattern'
             });
           }
         }
@@ -998,12 +1854,10 @@
           }
         }
 
-        // If no recommendations, check if it looks like a name (capitalized words)
-        if (result.recommendedOptions.length === 0) {
-          const namePattern = /^[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+$/;
-          if (namePattern.test(query.trim())) {
-            result.recommendedOptions.push({ key: 'person', ...this.searchOptions.person, reason: 'name' });
-          }
+        // If person detected via NLP but no recommendations yet, add People Intelligence first
+        if (result.nlpEntities.some(e => e.type === 'person') && result.recommendedOptions.length === 0) {
+          result.recommendedOptions.push({ key: 'peopleIntel', ...this.searchOptions.peopleIntel, reason: 'nlp-person' });
+          result.recommendedOptions.push({ key: 'person', ...this.searchOptions.person, reason: 'nlp-person' });
         }
 
         // Add general search if no specific recommendations
@@ -1060,10 +1914,22 @@
           ${analysis.entities.length > 0 ? `
             <div class="entity-pills">
               ${analysis.entities.map(e => `
-                <div class="entity-pill">
+                <a href="#" class="entity-pill" onclick="searchEntityCategory('${e.type}', '${escapeHtml(e.values[0]).replace(/'/g, "\\'")}'); return false;" title="Click to search ${e.label}">
                   <span class="type">${e.label}</span>
                   <span class="value">${escapeHtml(e.values[0].substring(0, 30))}${e.values[0].length > 30 ? '...' : ''}</span>
                   ${e.country ? `<span class="country">${e.country}</span>` : ''}
+                  <span class="search-icon">&#8594;</span>
+                </a>
+              `).join('')}
+            </div>
+          ` : ''}
+          ${analysis.nlpEntities && analysis.nlpEntities.length > 0 ? `
+            <div class="nlp-entities">
+              ${analysis.nlpEntities.map(e => `
+                <div class="nlp-entity ${e.type}">
+                  <span class="nlp-entity-type">${e.label}</span>
+                  <span class="nlp-entity-value">${escapeHtml(e.value)}</span>
+                  ${e.confidence ? `<span style="opacity:0.5;font-size:9px">${Math.round(e.confidence * 100)}%</span>` : ''}
                 </div>
               `).join('')}
             </div>
@@ -1111,6 +1977,7 @@
         card.addEventListener('click', (e) => {
           e.preventDefault();
           const optionKey = card.dataset.option;
+          const option = OSINT.searchOptions[optionKey];
 
           if (e.shiftKey) {
             // Shift+Click: Open all engines in separate tabs
@@ -1118,8 +1985,11 @@
           } else if (e.ctrlKey || e.metaKey) {
             // Ctrl/Cmd+Click: Redirect to first source (old behavior)
             OSINT.executeSearch(analysis.query, optionKey, 'redirect');
+          } else if (option && option.useRealResults) {
+            // Use the new real results view for options that support it
+            renderRealSearchResults(analysis.query, optionKey);
           } else {
-            // Regular click: Show multi-source results view
+            // Regular click: Show multi-source results view (iframe-based)
             renderMultiSourceResults(analysis.query, optionKey);
           }
         });
@@ -1185,7 +2055,542 @@
     }
 
     //=========================================
-    // MULTI-SOURCE RESULTS VIEW
+    // REAL SEARCH RESULTS VIEW (No iframes!)
+    //=========================================
+    let realSearchState = {
+      results: [],
+      loading: true,
+      activeSource: 'all',
+      sources: {}
+    };
+
+    async function renderRealSearchResults(query, optionKey) {
+      const option = OSINT.searchOptions[optionKey];
+      if (!option) return;
+
+      const app = document.getElementById('app');
+      app.classList.remove('container');
+      app.classList.add('results-container');
+
+      // Show loading state
+      app.innerHTML = `
+        <div class="results-header">
+          <div class="results-query">
+            Searching for <span>"${escapeHtml(query)}"</span>
+          </div>
+          <button class="results-back" onclick="goBack()">Back to Options</button>
+        </div>
+        <div class="search-results-container">
+          <div class="loading-results">
+            <div class="spinner"></div>
+            <div>Fetching results from multiple sources...</div>
+            <div class="loading-sources">
+              ${option.engines.map(eng => `<span class="loading-source active" id="loading-${eng}">${eng}</span>`).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Initialize state
+      realSearchState = {
+        results: [],
+        loading: true,
+        activeSource: 'all',
+        sources: {},
+        query: query,
+        option: option
+      };
+
+      // Fetch results from all sources
+      await fetchRealResults(query, option);
+
+      // Render the results
+      renderFetchedResults();
+    }
+
+    async function fetchRealResults(query, option) {
+      const sources = option.engines;
+      const results = [];
+
+      // Define fetch functions for each source (APIs + CORS proxy scraping)
+      const fetchFunctions = {
+        // API-based sources (most reliable)
+        cse: () => window.SearchEngine?.searchGoogleCSE(query, option.cseId || '20e0bdcc4fe9a4599'),
+        wikipedia: () => window.SearchEngine?.searchWikipedia(query, 10),
+        duckduckgo: () => window.SearchEngine?.searchDuckDuckGo(query),
+        wikidata: () => window.SearchEngine?.searchWikidata(query),
+        reddit: () => window.SearchEngine?.searchReddit(query, 8),
+        hackernews: () => window.SearchEngine?.searchHackerNews(query, 8),
+        github: () => window.SearchEngine?.searchGitHub(query, 'repositories', 8),
+        arxiv: () => window.SearchEngine?.searchArxiv(query, 8),
+        stackoverflow: () => window.SearchEngine?.searchStackOverflow(query, 8),
+
+        // Search engines via CORS proxy
+        google: () => window.SearchEngine?.searchGoogle(query),
+        ddghtml: () => window.SearchEngine?.searchDuckDuckGoHTML(query),
+        bing: () => window.SearchEngine?.searchBing(query),
+        brave: () => window.SearchEngine?.searchBrave(query),
+        ddg: () => window.SearchEngine?.searchDuckDuckGoHTML(query),
+
+        // People search sites
+        truepeoplesearch: () => window.SearchEngine?.searchTruePeopleSearch(query),
+        whitepages: () => window.SearchEngine?.searchWhitePages(query),
+        spokeo: () => window.SearchEngine?.searchSpokeo(query),
+        peekyou: () => window.SearchEngine?.searchPeekYou(query),
+        webmii: () => window.SearchEngine?.searchWebMii(query),
+        thatsthem: () => window.SearchEngine?.searchGoogle(query, 'thatsthem.com'),
+        fastpeoplesearch: () => window.SearchEngine?.searchGoogle(query, 'fastpeoplesearch.com'),
+        usphonebook: () => window.SearchEngine?.searchGoogle(query, 'usphonebook.com'),
+        familytreenow: () => window.SearchEngine?.searchGoogle(query, 'familytreenow.com'),
+        zabasearch: () => window.SearchEngine?.searchGoogle(query, 'zabasearch.com'),
+        radaris: () => window.SearchEngine?.searchGoogle(query, 'radaris.com'),
+        pipl: () => window.SearchEngine?.searchGoogle(query, 'pipl.com'),
+
+        // Social media via Google site search
+        linkedin: () => window.SearchEngine?.searchGoogle(query, 'linkedin.com'),
+        twitter: () => window.SearchEngine?.searchGoogle(query, 'twitter.com'),
+        facebook: () => window.SearchEngine?.searchGoogle(query, 'facebook.com'),
+        instagram: () => window.SearchEngine?.searchGoogle(query, 'instagram.com'),
+        tiktok: () => window.SearchEngine?.searchTikTok(query),
+        youtube: () => window.SearchEngine?.searchYouTube(query),
+        telegram: () => window.SearchEngine?.searchTelegram(query),
+
+        // Security/Threat Intel
+        shodan: () => window.SearchEngine?.searchShodan(query),
+        virustotal: () => window.SearchEngine?.searchVirusTotal(query),
+        censys: () => window.SearchEngine?.searchGoogle(query, 'censys.io'),
+        greynoise: () => window.SearchEngine?.searchGoogle(query, 'greynoise.io'),
+        pulsedive: () => window.SearchEngine?.searchGoogle(query, 'pulsedive.com'),
+        alienvault: () => window.SearchEngine?.searchGoogle(query, 'otx.alienvault.com'),
+        urlscan: () => window.SearchEngine?.searchGoogle(query, 'urlscan.io'),
+        intelx: () => window.SearchEngine?.searchGoogle(query, 'intelx.io'),
+        hibp: () => window.SearchEngine?.searchGoogle(query, 'haveibeenpwned.com'),
+        dehashed: () => window.SearchEngine?.searchGoogle(query, 'dehashed.com'),
+        snusbase: () => window.SearchEngine?.searchGoogle(query, 'snusbase.com'),
+        pastes: () => window.SearchEngine?.searchGoogle(`"${query}" site:pastebin.com OR site:paste.ee`),
+
+        // Domain/Network
+        whois: () => window.SearchEngine?.searchGoogle(query, 'who.is'),
+        viewdns: () => window.SearchEngine?.searchGoogle(query, 'viewdns.info'),
+        crtsh: () => window.SearchEngine?.searchGoogle(query, 'crt.sh'),
+        securitytrails: () => window.SearchEngine?.searchGoogle(query, 'securitytrails.com'),
+        dnslytics: () => window.SearchEngine?.searchGoogle(query, 'dnslytics.com'),
+
+        // Company/Business
+        opencorporates: () => window.SearchEngine?.searchOpenCorporates(query),
+        crunchbase: () => window.SearchEngine?.searchCrunchbase(query),
+        sec: () => window.SearchEngine?.searchGoogle(query, 'sec.gov'),
+        companieshouse: () => window.SearchEngine?.searchGoogle(query, 'company-information.service.gov.uk'),
+
+        // Legal
+        courtlistener: () => window.SearchEngine?.searchCourtListener(query),
+        judyrecords: () => window.SearchEngine?.searchGoogle(query, 'judyrecords.com'),
+
+        // Academic
+        scholar: () => window.SearchEngine?.searchGoogleScholar(query),
+        semanticscholar: () => window.SearchEngine?.searchGoogle(query, 'semanticscholar.org'),
+        pubmed: () => window.SearchEngine?.searchGoogle(query, 'pubmed.ncbi.nlm.nih.gov'),
+        googlepatents: () => window.SearchEngine?.searchGoogle(query, 'patents.google.com'),
+
+        // News
+        googlenews: () => window.SearchEngine?.searchGoogleNews(query),
+
+        // Archive
+        wayback: () => window.SearchEngine?.searchWayback(query),
+        archive: () => window.SearchEngine?.searchArchiveOrg(query),
+
+        // Crypto
+        blockchain: () => window.SearchEngine?.searchGoogle(query, 'blockchain.com'),
+        etherscan: () => window.SearchEngine?.searchGoogle(query, 'etherscan.io'),
+        bitcoinabuse: () => window.SearchEngine?.searchGoogle(query, 'bitcoinabuse.com'),
+
+        // Transport
+        flightaware: () => window.SearchEngine?.searchGoogle(query, 'flightaware.com'),
+        flightradar: () => window.SearchEngine?.searchGoogle(query, 'flightradar24.com'),
+        marinetraffic: () => window.SearchEngine?.searchGoogle(query, 'marinetraffic.com'),
+        vesselfinder: () => window.SearchEngine?.searchGoogle(query, 'vesselfinder.com'),
+
+        // Vehicle - NHTSA VIN Decoder (real government API)
+        nhtsa: () => window.SearchEngine?.decodeVIN(query),
+        nhtsarecalls: () => window.SearchEngine?.getVehicleRecalls(query),
+
+        // Maps
+        googlemaps: () => window.SearchEngine?.searchGoogle(query, 'google.com/maps'),
+
+        // Code
+        gitlab: () => window.SearchEngine?.searchGoogle(query, 'gitlab.com'),
+        searchcode: () => window.SearchEngine?.searchGoogle(query, 'searchcode.com'),
+
+        // Image
+        googleimgrev: () => window.SearchEngine?.searchGoogle(`"${query}" reverse image`),
+        yandexrev: () => window.SearchEngine?.searchGoogle(query, 'yandex.com/images'),
+        tineye: () => window.SearchEngine?.searchGoogle(query, 'tineye.com'),
+
+        // Government & Public Records APIs
+        fcc: () => window.SearchEngine?.searchFCCLicense(query),
+        secedgar: () => window.SearchEngine?.searchSEC(query),
+        rdap: () => window.SearchEngine?.lookupDomainRDAP(query),
+        crtsh: () => window.SearchEngine?.searchCertificates(query),
+        phone: () => window.SearchEngine?.lookupPhone(query),
+        ipgeo: () => window.SearchEngine?.lookupIP(query),
+        dns: () => window.SearchEngine?.lookupDNS(query),
+        uspto: () => window.SearchEngine?.searchUSPTO(query),
+        businessentity: () => window.SearchEngine?.searchBusinessEntity(query),
+        courtrecords: () => window.SearchEngine?.searchCourtRecords(query),
+        propertyrecords: () => window.SearchEngine?.searchPropertyRecords(query),
+      };
+
+      // Handle OSINT sources from PDFs
+      if (option.useOSINTSources && window.SearchEngine) {
+        // If searchAllOSINT is set, search all OSINT sources
+        if (option.searchAllOSINT) {
+          const loadingEl = document.querySelector('.loading-sources');
+          if (loadingEl) loadingEl.innerHTML = '<span class="loading-source active">Searching 80+ OSINT sources...</span>';
+
+          try {
+            const osintResults = await window.SearchEngine.searchAllOSINT(query);
+            realSearchState.sources['osint'] = osintResults || [];
+            realSearchState.results = osintResults || [];
+            realSearchState.loading = false;
+            return;
+          } catch (e) {
+            console.warn('OSINT search failed:', e);
+          }
+        }
+
+        // If osintCollection is set, search that specific source collection
+        if (option.osintCollection) {
+          const loadingEl = document.querySelector('.loading-sources');
+          const collectionName = option.osintCollection.replace('Sources', '');
+          if (loadingEl) loadingEl.innerHTML = `<span class="loading-source active">Searching ${collectionName} sources...</span>`;
+
+          try {
+            const osintResults = await window.SearchEngine.searchOSINTCollection(option.osintCollection, query);
+            realSearchState.sources['osint'] = osintResults || [];
+            realSearchState.results = osintResults || [];
+            realSearchState.loading = false;
+            return;
+          } catch (e) {
+            console.warn('OSINT collection search failed:', e);
+          }
+        }
+
+        // If osintCollections (plural) is set, search multiple source collections and combine results
+        if (option.osintCollections && Array.isArray(option.osintCollections)) {
+          const loadingEl = document.querySelector('.loading-sources');
+          const collectionNames = option.osintCollections.map(c => c.replace('Sources', '')).join(' + ');
+          if (loadingEl) loadingEl.innerHTML = `<span class="loading-source active">Searching ${collectionNames} sources...</span>`;
+
+          try {
+            const allResults = [];
+            const searchPromises = option.osintCollections.map(collection =>
+              window.SearchEngine.searchOSINTCollection(collection, query)
+            );
+            const settled = await Promise.allSettled(searchPromises);
+            settled.forEach(result => {
+              if (result.status === 'fulfilled' && result.value) {
+                allResults.push(...result.value);
+              }
+            });
+            realSearchState.sources['osint'] = allResults;
+            realSearchState.results = allResults;
+            realSearchState.loading = false;
+            return;
+          } catch (e) {
+            console.warn('OSINT collections search failed:', e);
+          }
+        }
+
+        // If osintCategory is set, search that specific category (legacy support)
+        if (option.osintCategory) {
+          const loadingEl = document.querySelector('.loading-sources');
+          if (loadingEl) loadingEl.innerHTML = `<span class="loading-source active">Searching ${option.osintCategory} sources...</span>`;
+
+          try {
+            const osintResults = await window.SearchEngine.searchOSINTCategory(option.osintCategory, query);
+            realSearchState.sources['osint'] = osintResults || [];
+            realSearchState.results = osintResults || [];
+            realSearchState.loading = false;
+            return;
+          } catch (e) {
+            console.warn('OSINT category search failed:', e);
+          }
+        }
+      }
+
+      // Fetch from each source in parallel
+      const promises = sources.map(async (source) => {
+        const loadingEl = document.getElementById(`loading-${source}`);
+        try {
+          const fetchFn = fetchFunctions[source];
+          if (fetchFn) {
+            const sourceResults = await fetchFn();
+            if (loadingEl) loadingEl.classList.replace('active', 'done');
+            realSearchState.sources[source] = sourceResults || [];
+            return { source, results: sourceResults || [] };
+          }
+        } catch (e) {
+          console.warn(`Failed to fetch from ${source}:`, e);
+          if (loadingEl) loadingEl.style.background = '#2a1a1a';
+        }
+        return { source, results: [] };
+      });
+
+      const settled = await Promise.allSettled(promises);
+
+      // Collect all results
+      settled.forEach(result => {
+        if (result.status === 'fulfilled' && result.value.results) {
+          results.push(...result.value.results.map(r => ({
+            ...r,
+            _source: result.value.source
+          })));
+        }
+      });
+
+      realSearchState.results = results;
+      realSearchState.loading = false;
+    }
+
+    function renderFetchedResults() {
+      const { results, sources, query, option, activeSource } = realSearchState;
+      const app = document.getElementById('app');
+
+      // Get source counts
+      const sourceCounts = {};
+      Object.entries(sources).forEach(([src, res]) => {
+        sourceCounts[src] = res.length;
+      });
+
+      // Filter results by active source
+      const filteredResults = activeSource === 'all'
+        ? results
+        : results.filter(r => r._source === activeSource);
+
+      // Find summary (from DuckDuckGo or Wikipedia)
+      const summary = results.find(r => r.type === 'answer' || r.type === 'summary');
+      const infobox = results.find(r => r.type === 'infobox');
+
+      // Group by type - separate quick info results from web results
+      const quickInfoTypes = ['ip', 'whois', 'phone', 'dns', 'trademark', 'vin', 'email', 'username', 'crypto', 'company', 'location'];
+      const quickInfoResults = filteredResults.filter(r => quickInfoTypes.includes(r.type));
+      const webResults = filteredResults.filter(r => !['answer', 'summary', 'infobox', 'discussion', ...quickInfoTypes].includes(r.type));
+      const discussions = filteredResults.filter(r => r.type === 'discussion' || r._source === 'reddit');
+
+      let html = `
+        <div class="results-header">
+          <div class="results-query">
+            Results for <span>"${escapeHtml(query)}"</span>
+          </div>
+          <button class="results-back" onclick="goBack()">Back to Options</button>
+        </div>
+        <div class="search-results-container">
+      `;
+
+      // Summary card (if found)
+      if (summary) {
+        html += `
+          <div class="person-summary">
+            ${summary.image ? `<img src="${summary.image}" class="person-summary-image" alt="" onerror="this.classList.add('placeholder');this.innerHTML='&#128100;';">` : `<div class="person-summary-image placeholder">&#128100;</div>`}
+            <div class="person-summary-content">
+              <div class="person-summary-title">${escapeHtml(summary.title || query)}</div>
+              <div class="person-summary-source">
+                <img src="https://www.google.com/s2/favicons?domain=${summary.source?.toLowerCase() || 'wikipedia'}.org&sz=32" alt="">
+                ${summary.source || 'Wikipedia'}
+              </div>
+              <div class="person-summary-desc">${escapeHtml(summary.description || summary.snippet || summary.extract || '')}</div>
+              ${summary.url ? `<a href="${summary.url}" target="_blank" style="color:#7ac;font-size:12px;margin-top:8px;display:inline-block;">Read more</a>` : ''}
+            </div>
+          </div>
+        `;
+      }
+
+      // Infobox (if found)
+      if (infobox && infobox.data) {
+        html += `
+          <div class="infobox">
+            <div class="infobox-title">Quick Facts</div>
+            <div class="infobox-grid">
+              ${Object.entries(infobox.data).slice(0, 8).map(([label, value]) => `
+                <div class="infobox-item">
+                  <span class="infobox-label">${escapeHtml(label)}</span>
+                  <span class="infobox-value">${escapeHtml(String(value))}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      // Quick Info Panel (phone, IP, WHOIS, etc.) - Always at top
+      if (quickInfoResults.length > 0) {
+        // Group quick info by type for organized display
+        const groupedQuickInfo = {};
+        quickInfoResults.forEach(r => {
+          const type = r.type || 'info';
+          if (!groupedQuickInfo[type]) groupedQuickInfo[type] = [];
+          groupedQuickInfo[type].push(r);
+        });
+
+        const typeLabels = {
+          'phone': '📞 Phone Info',
+          'ip': '🌐 IP Address Info',
+          'whois': '🔍 Domain Info',
+          'dns': '📡 DNS Records',
+          'vin': '🚗 VIN Info',
+          'email': '📧 Email Info',
+          'username': '👤 Username Info',
+          'crypto': '💰 Crypto Address',
+          'company': '🏢 Company Info',
+          'trademark': '™️ Trademark',
+          'location': '📍 Location'
+        };
+
+        html += `<div class="quick-info-panel">`;
+
+        Object.entries(groupedQuickInfo).forEach(([type, items]) => {
+          html += `
+            <div class="quick-info-section">
+              <div class="quick-info-header">${typeLabels[type] || '📋 Info'}</div>
+              <div class="quick-info-grid">
+                ${items.map(item => `
+                  <div class="quick-info-item">
+                    <span class="quick-info-label">${escapeHtml(item.title || '')}</span>
+                    <span class="quick-info-value">${escapeHtml(item.snippet || '')}</span>
+                    ${item.url ? `<a href="${item.url}" target="_blank" class="quick-info-link">View →</a>` : ''}
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        });
+
+        html += `</div>`;
+      }
+
+      // Source tabs
+      html += `
+        <div class="source-tabs-mini">
+          <button class="source-tab-mini ${activeSource === 'all' ? 'active' : ''}" onclick="filterRealResults('all')">
+            All <span class="count">(${results.length})</span>
+          </button>
+          ${Object.entries(sourceCounts).filter(([_, count]) => count > 0).map(([src, count]) => `
+            <button class="source-tab-mini ${activeSource === src ? 'active' : ''}" onclick="filterRealResults('${src}')">
+              ${src} <span class="count">(${count})</span>
+            </button>
+          `).join('')}
+        </div>
+      `;
+
+      // Web results - grouped by domain
+      if (webResults.length > 0) {
+        // Group results by domain
+        const domainGroups = {};
+        webResults.forEach(r => {
+          try {
+            const url = new URL(r.url || '');
+            const domain = url.hostname.replace(/^www\./, '');
+            if (!domainGroups[domain]) {
+              domainGroups[domain] = [];
+            }
+            domainGroups[domain].push(r);
+          } catch (e) {
+            // Invalid URL, put in 'other' group
+            if (!domainGroups['other']) domainGroups['other'] = [];
+            domainGroups['other'].push(r);
+          }
+        });
+
+        // Sort domains by result count (descending)
+        const sortedDomains = Object.entries(domainGroups)
+          .sort((a, b) => b[1].length - a[1].length);
+
+        html += `
+          <div class="results-section">
+            <div class="results-section-title">
+              Search Results <span class="results-section-count">${webResults.length}</span>
+            </div>
+            ${sortedDomains.map(([domain, domainResults], index) => `
+              <div class="domain-group">
+                <div class="domain-group-header${index > 2 ? ' collapsed' : ''}" onclick="toggleDomainGroup(this)">
+                  <svg class="domain-group-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 12,15 18,9"></polyline>
+                  </svg>
+                  <img class="domain-group-favicon" src="https://www.google.com/s2/favicons?domain=${domain}&sz=32" alt="" onerror="this.style.display='none'">
+                  <span class="domain-group-name">${escapeHtml(domain)}</span>
+                  <span class="domain-group-count">${domainResults.length} result${domainResults.length > 1 ? 's' : ''}</span>
+                </div>
+                <div class="domain-group-content"${index > 2 ? ' style="display:none"' : ''}>
+                  ${domainResults.map(r => renderResultCard(r)).join('')}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      // Discussions
+      if (discussions.length > 0) {
+        html += `
+          <div class="results-section">
+            <div class="results-section-title">
+              Discussions <span class="results-section-count">${discussions.length}</span>
+            </div>
+            ${discussions.map(r => renderResultCard(r)).join('')}
+          </div>
+        `;
+      }
+
+      // No results
+      if (filteredResults.length === 0) {
+        html += `
+          <div class="no-results-found">
+            <div class="no-results-found-icon">&#128269;</div>
+            <div>No results found from the selected sources.</div>
+            <div style="margin-top:12px;font-size:12px;">Try a different search or check back later.</div>
+          </div>
+        `;
+      }
+
+      html += `
+          <div class="footer" style="margin-top:24px;">
+            Results fetched from: ${Object.keys(sources).filter(s => sources[s].length > 0).join(', ')}
+          </div>
+        </div>
+      `;
+
+      app.innerHTML = html;
+    }
+
+    function renderResultCard(result) {
+      // Simple Google-style result
+      if (result.url) {
+        const hostname = new URL(result.url).hostname.replace('www.', '');
+        return `
+          <div class="result-item">
+            <a href="${result.url}" target="_blank" class="result-title">${escapeHtml(result.title || 'Untitled')}</a>
+            <div class="result-url">${hostname}</div>
+            ${result.snippet ? `<div class="result-snippet">${escapeHtml(result.snippet.substring(0, 200))}</div>` : ''}
+            <div class="result-source">${result.source || 'Web'}</div>
+          </div>
+        `;
+      }
+      // Data result (no URL - key/value display)
+      return `
+        <div class="data-result">
+          <span class="data-label">${escapeHtml(result.title || '')}</span>
+          <span class="data-value">${escapeHtml(result.snippet || '')}</span>
+        </div>
+      `;
+    }
+
+    function filterRealResults(source) {
+      realSearchState.activeSource = source;
+      renderFetchedResults();
+    }
+
+    //=========================================
+    // MULTI-SOURCE RESULTS VIEW (Iframe-based)
     //=========================================
     let currentView = 'grid'; // 'grid' or 'single'
     let activeSource = null;
@@ -1468,6 +2873,72 @@
       }
     }
 
+    // Map entity types to search categories
+    function searchEntityCategory(entityType, value) {
+      const entityToCategoryMap = {
+        // Contact entities
+        'phone_us': 'phone',
+        'phone_uk': 'phone',
+        'phone_intl': 'phone',
+        'phone_generic': 'phone',
+        'email': 'email',
+        // Identity entities
+        'person': 'peopleIntel',
+        'username': 'username',
+        'ssn_us': 'person',
+        // Network entities
+        'ip': 'ip',
+        'domain': 'domain',
+        'url': 'domain',
+        // Vehicle entities
+        'vin': 'vehicle',
+        'plate_us': 'vehicle',
+        'plate_uk': 'vehicle',
+        'plate_eu': 'vehicle',
+        'serial': 'stolenProperty',
+        'imei': 'stolenProperty',
+        // Transport entities
+        'flight': 'flight',
+        'imo': 'ship',
+        // Financial entities
+        'iban': 'financial',
+        'ein': 'company',
+        // Crypto entities
+        'btc': 'crypto',
+        'btc_bech32': 'crypto',
+        'eth': 'crypto',
+        // Hash entities
+        'md5': 'hash',
+        'sha1': 'hash',
+        'sha256': 'hash',
+        // Security entities
+        'cve': 'cve',
+        // Academic entities
+        'doi': 'academic',
+        'isbn': 'academic',
+        'arxiv': 'academic',
+        'patent': 'patent',
+        // Legal entities
+        'case_us': 'legal',
+        // Geo entities
+        'coordinates': 'location',
+        // Media entities
+        'imageUrl': 'image',
+      };
+
+      const category = entityToCategoryMap[entityType] || 'general';
+      renderRealSearchResults(value, category);
+    }
+
+    // Toggle domain group expand/collapse
+    function toggleDomainGroup(header) {
+      header.classList.toggle('collapsed');
+      const content = header.nextElementSibling;
+      if (content) {
+        content.style.display = content.style.display === 'none' ? 'block' : 'none';
+      }
+    }
+
     function renderSearchBox() {
       const app = document.getElementById('app');
       app.innerHTML = `
@@ -1501,11 +2972,16 @@
     //=========================================
     // MAIN
     //=========================================
-    (function() {
+    (async function() {
       const params = new URLSearchParams(window.location.search);
       const query = params.get('q');
       const auto = params.get('auto');
       const option = params.get('opt');
+
+      // Initialize NLP module
+      if (window.NLP) {
+        await window.NLP.init();
+      }
 
       // No query - show search box
       if (!query) {
@@ -1521,7 +2997,7 @@
 
       // Analyze and show UI
       const analysis = OSINT.analyze(query);
-      
+
       // If auto mode without option, use first recommended
       if (auto && analysis.recommendedOptions.length > 0) {
         OSINT.executeSearch(query, analysis.recommendedOptions[0].key, auto === 'tabs' ? 'tabs' : 'redirect');
